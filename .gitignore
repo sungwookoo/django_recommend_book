@@ -1,5 +1,4 @@
 secrets.json
-venv/
 .idea/
 *.log
 *.pot
