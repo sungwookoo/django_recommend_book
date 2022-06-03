@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    프로필
+{% endblock %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="profile_book_box">
+        <div class="profile_book_shelf">
+            <form class="form-area" method="get" action="/profile/">
+                {% csrf_token %}
+        </div>
+    </div>
+
+    <div class="profile_history_box">
+        <div class="profile_history_review"> haha </div>
+    </div>
+
+{% endblock %}

@@ -75,3 +75,8 @@ def user_follow(request, id):
         click_user.followee.add(request.user)
     return redirect('/')
 
+
+def profile_view(request):
+    if request.method == 'GET':
+        return render(request, 'profile.html')
+
