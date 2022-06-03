@@ -15,7 +15,7 @@ def sign_up_view(request):
         if user:  # 로그인이 되어있다면
             return redirect('/')
         else:  # 로그인이 되어있지 않다면
-            return render(request, 'user/signup.html')
+            return render(request, 'signup.html')
     elif request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -23,11 +23,11 @@ def sign_up_view(request):
 
         if password != password2:
             # 패스워드가 다르다는 에러가 필요합니다. {'error':'에러문구'} 를 만들어서 전달합니다.
-            return render(request, 'user/signup.html', {'error': '패스워드를 확인 해 주세요!'})
+            return render(request, 'signup.html', {'error': '패스워드를 확인 해 주세요!'})
         else:
             if username == '' or password == '':
                 # 사용자 저장을 위한 username과 password가 필수라는 것을 얘기 해 줍니다.
-                return render(request, 'user/signup.html', {'error': '사용자 이름과 패스워드는 필수 값 입니다'})
+                return render(request, 'signup.html', {'error': '사용자 이름과 패스워드는 필수 값 입니다'})
 
             exist_user = get_user_model().objects.filter(username=username)
             if exist_user:
@@ -50,13 +50,13 @@ def sign_in_view(request):
             auth.login(request, me)
             return redirect('/')
         else:
-            return render(request,'user/signin.html',{'error':'유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
+            return render(request,'signin.html',{'error':'유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
     elif request.method == 'GET':
         user = request.user.is_authenticated
         if user:
             return redirect('/')
         else:
-            return render(request, 'user/signin.html')
+            return render(request, 'signin.html')
 
 
 @login_required
@@ -73,5 +73,5 @@ def user_follow(request, id):
         click_user.followee.remove(request.user)
     else:
         click_user.followee.add(request.user)
-    return redirect('/user')
+    return redirect('/')
 
