@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    홈
+{% endblock %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container timeline-container" style="">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">아이디</h5>
+                        <p class="card-text">소개</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div style="display:flex;flex-direction: column;justify-content: center;">
+                    <div class="top-area" style="display:flex; flex-direction: row; justify-content: flex-start; height: 50px; align-items: center">
+                        <span>Book List</span>
+                    </div>
+                    <div class="book-area" id="book-area" name="book-area"
+                         style="display: flex; flex-direction: column; flex-wrap: wrap">
+
+                        {# book data #}
+                        <div class="book" style="display: flex; flex-direction: row">
+                            <div class="book-img" style="width:100px; height: 140px; background-color: black; margin-right: 30px;">
+                                <img src="https://picsum.photos/100/120" class="thumb-book-img" id="thumb-book-img"
+                                     style="object-fit: cover">
+                            </div>
+                            <div class="book-info" style="display: flex; flex-direction: column;">
+                                <div class="book-info-title">
+                                    <span style="font-size: large; font-weight: bold">책 제목</span>
+                                </div>
+                                <div class="book-info-author">
+                                    <span style="font-size: small"> 저자 | 출판사 | 출간일 </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="footer-area">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
