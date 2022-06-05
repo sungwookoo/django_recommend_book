@@ -113,7 +113,7 @@
                             </div>
                         {% endfor %}
                         {% if all_book.has_next %}
-                            <a class="infinite-more-link" href="?page={{ all_book.next_page_number }}">More</a>
+                            <a class="infinite-more-link" href="?search_text={{ search_text }}&page={{ all_book.next_page_number }}">More</a>
                         {% endif %}
                         <div class="loading" style="display: none;">
                             Loading...
