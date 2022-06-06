@@ -52,8 +52,6 @@
                                 </button>
                             </div>
                         </form>
-
-
                     </div>
                     <div class="book-area" id="book-area" name="book-area"
                          style="">
@@ -88,13 +86,13 @@
                         {% for book in all_book %}
                             <div class="book" style="">
                                 <div class="book-img" style="">
-                                    <a href="상세페이지url"><img src="https://picsum.photos/100/120" class="thumb-book-img"
+                                    <a href="/book/1"><img src="https://picsum.photos/100/120" class="thumb-book-img"
                                                             id="thumb-book-img"
                                                             style=""></a>
                                 </div>
                                 <div class="book-info" style="">
                                     <div class="book-info-title">
-                                        <a href="상세페이지url"><span>{{ book.title }}</span></a>
+                                        <a href="/book/1"><span>{{ book.title }}</span></a>
                                     </div>
                                     <div class="book-info-text">
                                         <span style="">{{ book.author }} | {{ book.publishar }} </span>
