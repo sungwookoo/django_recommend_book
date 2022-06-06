@@ -52,3 +52,8 @@ def get_book(request):
             except EmptyPage:
                 book_list = paginator.page(paginator.num_pages)
             return render(request, 'home.html', {'all_book': book_list})
+
+def detail_book(request,id):
+    # book = (bookDB).objects.get(id=id)
+    book =  {'title': '제목' + str(id), 'author': '저자' + str(id), 'publishar': '출판사' + str(id), 'desc': '내용' + str(id)}
+    return render(request,'detail.html', {'book': book})
