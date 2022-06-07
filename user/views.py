@@ -41,10 +41,12 @@ def sign_up_view(request):
                               {'error': '사용자가 존재합니다.'})  # 사용자가 존재하기 때문에 사용자를 저장하지 않고 회원가입 페이지를 다시 띄움
             else:
                 UserModel.objects.create_user(username=username, password=password)
-                Book.title = my_title
-                Book.img_url = my_img
-                Book.like_users = username
-                Book.save()
+                first_book=Book()
+                first_book.title = my_title
+                first_book.img_url = my_img
+                first_book.pub_date = 12
+                first_book.description = 'description'
+                first_book.save()
 
                 return redirect('/sign-in')  # 회원가입이 완료되었으므로 로그인 페이지로 이동
 
