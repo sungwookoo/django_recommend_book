@@ -46,8 +46,11 @@ def sign_up_view(request):
                 first_book=Book()
                 first_book.title = my_title
                 first_book.img_url = my_img
-                first_book.pub_date = 12
+                first_book.pub_date = '1111-11-11'
                 first_book.description = 'description'
+                first_book.publisher = 'publisher'
+                first_book.created_at = '1'
+                first_book.like_users_id=1
                 first_book.save()
 
                 return redirect('/sign-in')  # 회원가입이 완료되었으므로 로그인 페이지로 이동
