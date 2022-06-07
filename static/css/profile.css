@@ -1,8 +1,8 @@
 /*profile CSS*/
 
-*{
-    border: 1px solid blue;
-}
+/**{*/
+/*    border: 1px solid blue;*/
+/*}*/
 
 .profile_container{
     display: flex;
@@ -17,8 +17,6 @@
     flex-direction: row;
     justify-content: center;
     height: 200px;
-    font-family: 'Hi Melody', cursive;
-    /*font-family: 'Do Hyeon', sans-serif;*/
 }
 
 .profile_image_name_box{
@@ -44,6 +42,8 @@
     flex-direction: row;
     justify-content: center ;
     font-size: 25px;
+    font-family: 'Do Hyeon', sans-serif;
+    color: darkblue;
 }
 
 .profile_follower{
@@ -51,7 +51,17 @@
     flex-direction: column;
     justify-content: center ;
     margin-right: 50px;
-    font-size: 25px;
+    font-size: 23px;
+    font-family: 'Do Hyeon', sans-serif;
+
+}
+
+.follower_num{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: 'Hi Melody', cursive;
+
 }
 
 .profile_following{
@@ -59,16 +69,24 @@
     flex-direction: column;
     justify-content: center ;
     margin-left: 50px;
-    font-size: 25px;
+    font-size: 23px;
+    font-family: 'Do Hyeon', sans-serif;
+
 }
 
+.following_num{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: 'Hi Melody', cursive;
+}
 
 /*책 영역*/
 .profile_book-area{
     display: flex;
     flex-direction: column;
     height: 350px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .profile_book_category{
@@ -82,14 +100,14 @@
     flex-direction: row;
     height: 300px;
     border: 1px solid grey;
+    overflow-x: scroll;
 }
 
 .profile_book{
-
+    margin: 10px 10px 0px 10px;
 }
 
 .profile_book_image_box{
-    margin: 10px 10px 0px 10px;
 }
 
 .profile_book_image{
@@ -126,6 +144,7 @@
     flex-direction: column;
     height: 300px;
     border: 1px solid grey;
+    overflow-y: scroll;
 }
 
 .profile_riview{
