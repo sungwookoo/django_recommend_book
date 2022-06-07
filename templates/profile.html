@@ -6,7 +6,7 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
@@ -53,8 +53,7 @@
                     {% for my_book in profile_book %}
                     <div class="profile_book">
                         <div class="profile_book_image_box">
-                            <img class="profile_book_image" src="http://image.kyobobook.co.kr/images/book/large/188/l9791161571188.jpg">
-{#                            <img class="profile_book_image" src="{% my_book.image %}">#}
+                            <img class="profile_book_image" src="{{ my_book.img_url }}">
                         </div>
                         <div class="profile_book_name_box">
                             <div class="profile_book_name">{{ my_book.title }}</div>

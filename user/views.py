@@ -100,16 +100,11 @@ def user_follow(request, id):
 def profile_view(request):
     if request.method == 'GET':
         profile_book_list = Book.objects.all()
+        profile_img_list = Book.objects.filter()
         profile_review_list = []
         profile_name_list = ['[청하]']
         profile_follow_list = ['132']
         profile_following_list = ['124']
-
-
-        # for i in range(1, 15):
-        #     profile_book_list.append(
-        #         {'title': '제목' + str(i)}
-        #     )
 
         if id == id:
             for j in range(1, 15):
@@ -121,7 +116,9 @@ def profile_view(request):
                                                     'profile_review': profile_review_list,
                                                     'profile_name': profile_name_list,
                                                     'profile_follow': profile_follow_list,
-                                                    'profile_following': profile_following_list})
+                                                    'profile_following': profile_following_list,
+                                                    'profile_img': profile_img_list
+                                                    })
 
 
     #     id = request.GET['주소']
