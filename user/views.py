@@ -50,7 +50,8 @@ def sign_up_view(request):
                 first_book.description = 'description'
                 first_book.publisher = 'publisher'
                 first_book.created_at = '1'
-                first_book.like_users_id=1
+                like_users_id=UserModel.objects.values().order_by('-id')
+                first_book.like_users_id=like_users_id[0]['id']
                 first_book.save()
 
                 return redirect('/sign-in')  # 회원가입이 완료되었으므로 로그인 페이지로 이동
@@ -146,16 +147,30 @@ def profile_view(request):
     # return render(request, 'profile.html', data)
 
 def crawling_bestseller():
+    bestseller = []
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get('http://www.kyobobook.co.kr/bestSellerNew/bestseller.laf', headers=headers)
+    for k in range(1, 35, 2):
+        k=str(k)
+        k=k.zfill(2)
+        data = requests.get(
+            f'http://www.kyobobook.co.kr/categoryRenewal/categoryMain.laf?perPage=20&mallGb=KOR&linkClass={k}&menuCode=002',
+            headers=headers)
+        soup = BeautifulSoup(data.text, 'html.parser')
+        books = soup.select('#prd_list_type1 > li')
 
-    soup = BeautifulSoup(data.text, 'html.parser')
-    books = soup.select('#main_contents > ul > li')
-    bestseller=[]
-    c=0
-    for book in books:
-        c +=1
-        best_image = book.select_one('div.cover > a > img')
-        bestseller.append({'rank':c ,'title':best_image['alt'], 'img':best_image['src']})
+        for i in range(0, len(books), 2):
+            best_image = \
+            books[i].select_one('div.thumb_cont > div.info_area > div.cover_wrap > div.cover > a > span > img')['src']
+            best_title = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.title > a > strong').text
+            best_author = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.pub_info > span.author').text
+            best_publication = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.pub_info > span.publication').text
+            best_pub_day = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.pub_info > span:nth-child(3)').text
+            best_description = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.info > span').text
+            bestseller.append(
+                {'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
+                 'pub_day': best_pub_day, 'description': best_description})
     return bestseller
