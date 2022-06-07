@@ -50,7 +50,7 @@ def sign_in_view(request):
             auth.login(request, me)
             return redirect('/')
         else:
-            return render(request,'signin.html',{'error':'유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
+            return render(request, 'signin.html', {'error': '유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
     elif request.method == 'GET':
         user = request.user.is_authenticated
         if user:
@@ -76,7 +76,56 @@ def user_follow(request, id):
     return redirect('/')
 
 
+# 프로필
+
+# def profile_view(request, id):
+#     if id is None:
+#         me = request.user
+#         books = BookModel.objects.filter(user_id=me.id)
+#         reviews = ReviewModel.objects.filter(author=me.id)
+#
+#     else:
+#         books = BookModel.objects.filter(user_id=id)
+#         reviews = ReviewModel.objects.filter(author=id)
+#
+#     return render(request, 'profile.html', {'books':books, 'reviews':reviews})
+
+
+# def profile_view(request):
+#     return render(request, 'profile.html')
+
+
 def profile_view(request):
     if request.method == 'GET':
-        return render(request, 'profile.html')
+        profile_book_list = []
+        profile_review_list = []
+        profile_name_list = ['차은우']
 
+        for i in range(1, 7):
+            profile_book_list.append(
+                {'title': '제목' + str(i)}
+            )
+
+        if id == id:
+            for j in range(1, 6):
+                profile_review_list.append(
+                    {'title': '제목' + str(j), 'review': '[리뷰]' + str(j), 'date': '2022.06.07'}
+                )
+
+            return render(request, 'profile.html', {'profile_book':profile_book_list, 'profile_review': profile_review_list, 'profile_name': profile_name_list})
+
+
+
+
+        # for i in range(1, 5):
+        #     profile_review_list.append(
+        #         {'title': '제목' + str(i), 'review': '[리뷰]' + str(i), 'date' : '2022.06.07'}
+        #     )
+        #     return render(request, 'profile.html', {'profile_review': profile_review_list})
+
+
+    #     id = request.GET['주소']
+    #     data = {
+    #        'html' : id,
+    #     }
+    # return render(request, 'profile.html', data)

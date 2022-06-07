@@ -1,25 +1,73 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
     프로필
 {% endblock %}
+
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
+    <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 {% endblock %}
 
-
 {% block content %}
-    <div class="profile_book_box">
-        <div class="profile_book_shelf">
-            <form class="form-area" method="get" action="/profile/">
-                {% csrf_token %}
+    <div class="container timeline-container" style="">
+        <div class="profile_container" style="">
+            <div class="profile_top-area" id="profile_top-area" name="profile_top-area" style="">
+                <div class="profile_follower">
+                    팔로워
+                </div>
+                <div class="profile_image_name_box">
+                    <div class="profile_image_box">
+                        <img class="profile_image" src="https://studio.zepeto.me/img/img_slider_02.png">
+                    </div>
+                    {% for my_name in profile_name %}
+                    <div class="profile_name">
+                    {{ my_name }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="profile_following">
+                    팔로잉
+                </div>
+            </div>
+
+
+            <div class="profile_book-area" id="profile_book-area" name="profile_book-area" style="">
+                <div class="profile_book_category">책장</div>
+                <div class="profile_book_box">
+                    {#책 반복문 들어갈 자리#}
+                    {% for my_book in profile_book %}
+                    <div class="profile_book">
+                        <div class="profile_book_image_box">
+                            <img class="profile_book_image" src="http://image.kyobobook.co.kr/images/book/large/188/l9791161571188.jpg">
+{#                            <img class="profile_book_image" src="{% my_book.image %}">#}
+                        </div>
+                        <div class="profile_book_name_box">
+                            <div class="profile_book_name">{{ my_book.title }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div class="profile_review-area" id="profile_review-area" name="profile_review-area" style="">
+                <div class="profile_review_category">히스토리</div>
+                <div class="profile_review_box">
+                    {#리뷰 반복문 들어갈 자리#}
+                    {% for my_review in profile_review %}
+                    <div class="profile_riview">
+                        <div class="profile_riview_title"> {{ my_review.title }}</div>
+                        <div class="profile_review_content"> {{ my_review.review }} </div>
+                        <div class="profile_review_date">{{ my_review.date }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="profile_history_box">
-        <div class="profile_history_review"> haha </div>
-    </div>
-
 {% endblock %}
