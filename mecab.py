@@ -2,7 +2,7 @@ import MeCab
 import pandas as pd
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
-df = pd.read_table('book.csv', sep=',')
+df = pd.read_table('book/doc2vec/book.csv', sep=',')
 mecab = MeCab.Tagger()
 df['token'] = 0
 for i in range(0, len(df['title'])):
@@ -17,7 +17,7 @@ for i in range(0, len(df['title'])):
     df['token'][i] = tokens
 
 documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(df['token'])]
-model = Doc2Vec(documents, vector_size=100, window=3, epochs=1, min_count=0, workers=4)
+model = Doc2Vec(documents, vector_size=100, window=3, epochs=10, min_count=0, workers=4)
 
 inferred_doc_vec = model.infer_vector(df['token'][100])
 # print(inferred_doc_vec)
@@ -28,6 +28,8 @@ for index, similarity in most_similar_docs:
     # print(f"{index}, similarity: {similarity}")
     book_data.append({'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
                       'description': df['description'][index], 'author': df['author'][index],
+                      'price': df['price'][index], 'pub_date': df['pub_date_2'][index],
                       'publisher': df['publisher'][index]})
 
+model.save('./model.doc2vec')
 print(book_data)
