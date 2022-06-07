@@ -27,7 +27,7 @@ book_data=[]
 for index, similarity in most_similar_docs:
     # print(f"{index}, similarity: {similarity}")
     book_data.append({'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
-                      'description': df['description'][index], 'author': df['author'][index],
+                      'description': df['description'][index], 'author': df['author'][index],'price': df['price'][index],'pub_date': df['pub_date_2'][index],
                       'publisher': df['publisher'][index]})
 
 print(book_data)
