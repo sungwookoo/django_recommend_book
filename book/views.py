@@ -121,6 +121,6 @@ def insert_book_data(request):
         book_data.description = df['description'][index]
         book_data.author = df['author'][index]
         book_data.price = df['price'][index]
-        book_data.pub_date = df['pub_date_2'][index]
+        book_data.pub_date_2 = df['pub_date_2'][index]
         book_data.publisher = df['publisher'][index]
         book_data.save()
