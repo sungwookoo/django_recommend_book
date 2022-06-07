@@ -15,7 +15,8 @@ def sign_up_view(request):
         if user:  # 로그인이 되어있다면
             return redirect('/')
         else:  # 로그인이 되어있지 않다면
-            return render(request, 'signup.html')
+
+            return render(request, 'signup.html', )
     elif request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -80,3 +81,6 @@ def profile_view(request):
     if request.method == 'GET':
         return render(request, 'profile.html')
 
+
+def crawling():
+    pass

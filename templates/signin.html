@@ -3,12 +3,16 @@
 {% block title %}
     로그인
 {% endblock %}
-{% block style %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="container">
+<section>
+    <div class="container_login">
+        {% load socialaccount %}
+            <a class="btn_naver" href=" {% provider_login_url 'naver' %}">네이버 로그인</a>
+        <p class="space_or"><span>또는</span></p>
         <div class="wrap_in">
             <div class="wrap_in2"><h2 class="title-center"> 로그인</h2></div>
             <form class="form-area" action="/sign-in/" method="post">
@@ -33,9 +37,11 @@
                 </div>
             </form>
 
+
         </div>
     </div>
-<script>
+    <script>
 
-</script>
+    </script>
+</section>
 {% endblock %}
