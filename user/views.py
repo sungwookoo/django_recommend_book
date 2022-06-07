@@ -1,5 +1,7 @@
 # user/views.py
 from django.shortcuts import render, redirect
+
+from book.models import Book
 from .models import UserModel
 from django.http import HttpResponse
 # user/views.py
@@ -97,31 +99,29 @@ def user_follow(request, id):
 
 def profile_view(request):
     if request.method == 'GET':
-        profile_book_list = []
+        profile_book_list = Book.objects.all()
         profile_review_list = []
-        profile_name_list = ['차은우']
+        profile_name_list = ['[청하]']
+        profile_follow_list = ['132']
+        profile_following_list = ['124']
 
-        for i in range(1, 7):
-            profile_book_list.append(
-                {'title': '제목' + str(i)}
-            )
+
+        # for i in range(1, 15):
+        #     profile_book_list.append(
+        #         {'title': '제목' + str(i)}
+        #     )
 
         if id == id:
-            for j in range(1, 6):
+            for j in range(1, 15):
                 profile_review_list.append(
                     {'title': '제목' + str(j), 'review': '[리뷰]' + str(j), 'date': '2022.06.07'}
                 )
 
-            return render(request, 'profile.html', {'profile_book':profile_book_list, 'profile_review': profile_review_list, 'profile_name': profile_name_list})
-
-
-
-
-        # for i in range(1, 5):
-        #     profile_review_list.append(
-        #         {'title': '제목' + str(i), 'review': '[리뷰]' + str(i), 'date' : '2022.06.07'}
-        #     )
-        #     return render(request, 'profile.html', {'profile_review': profile_review_list})
+            return render(request, 'profile.html', {'profile_book': profile_book_list,
+                                                    'profile_review': profile_review_list,
+                                                    'profile_name': profile_name_list,
+                                                    'profile_follow': profile_follow_list,
+                                                    'profile_following': profile_following_list})
 
 
     #     id = request.GET['주소']
