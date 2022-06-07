@@ -44,4 +44,4 @@ class BookData(models.Model):
     price = models.CharField(max_length=100, default='없음')
     img_url = models.CharField(max_length=100, default='https://via.placeholder.com/150')
     description = models.CharField(max_length=100, default='없음')
-    pub_date_2 = models.DateField(null=True)
+    pub_date_2 = models.DateField(blank=True, default='', null=True)
