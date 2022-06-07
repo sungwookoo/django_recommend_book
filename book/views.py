@@ -1,5 +1,6 @@
 import gensim.models
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -113,14 +114,22 @@ def detail_book(request, id):
 
 def insert_book_data(request):
     df = pd.read_table('book/doc2vec/book.csv', sep=',')
+    count = 0
     for index in range(0, len(df['title'])):
-        book_data = BookData()
-        book_data.master_seq = df['master_seq'][index]
-        book_data.title = df['title'][index]
-        book_data.img_url = df['img_url'][index]
-        book_data.description = df['description'][index]
-        book_data.author = df['author'][index]
-        book_data.price = df['price'][index]
-        book_data.pub_date_2 = df['pub_date_2'][index]
-        book_data.publisher = df['publisher'][index]
-        book_data.save()
+        try:
+            book_data = BookData()
+            book_data.master_seq = df['master_seq'][index]
+            book_data.title = df['title'][index]
+            book_data.img_url = df['img_url'][index]
+            book_data.description = df['description'][index]
+            book_data.author = df['author'][index]
+            book_data.price = df['price'][index]
+            book_data.pub_date_2 = df['pub_date_2'][index]
+            book_data.publisher = df['publisher'][index]
+            book_data.save()
+        except:
+            count += 1
+            continue
+
+    print(count)
+    return redirect('/book')
