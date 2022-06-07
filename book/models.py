@@ -9,7 +9,7 @@ from django.conf import settings
 #                   'publisher': df['publisher'][index]})
 class Book(models.Model):
     class Meta :
-        db_table = "books"
+        db_table = "book"
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=50)
@@ -22,7 +22,7 @@ class Book(models.Model):
 
 class Review(models.Model):
     class Meta:
-        db_table = "reviews"
+        db_table = "review"
     content = models.TextField()
     # star = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
