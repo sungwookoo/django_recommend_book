@@ -8,6 +8,8 @@ from django.conf import settings
 #                   'description': df['description'][index], 'author': df['author'][index],'price': df['price'][index],'pub_date': df['pub_date_2'][index],
 #                   'publisher': df['publisher'][index]})
 class Book(models.Model):
+    class Meta :
+        db_table = "book"
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=50)
@@ -19,6 +21,8 @@ class Book(models.Model):
 
 
 class Review(models.Model):
+    class Meta:
+        db_table = "review"
     content = models.TextField()
     # star = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
