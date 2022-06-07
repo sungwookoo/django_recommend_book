@@ -1,5 +1,7 @@
 # user/views.py
 from django.shortcuts import render, redirect
+
+from book.models import Book
 from .models import UserModel
 from book.models import Book
 from django.http import HttpResponse
@@ -65,6 +67,7 @@ def sign_in_view(request):
         else:
             crawling_bestseller()
             return render(request,'signin.html',{'error':'유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
+
     elif request.method == 'GET':
         user = request.user.is_authenticated
         if user:
@@ -90,10 +93,54 @@ def user_follow(request, id):
     return redirect('/')
 
 
+# 프로필
+
+# def profile_view(request, id):
+#     if id is None:
+#         me = request.user
+#         books = BookModel.objects.filter(user_id=me.id)
+#         reviews = ReviewModel.objects.filter(author=me.id)
+#
+#     else:
+#         books = BookModel.objects.filter(user_id=id)
+#         reviews = ReviewModel.objects.filter(author=id)
+#
+#     return render(request, 'profile.html', {'books':books, 'reviews':reviews})
+
+
+# def profile_view(request):
+#     return render(request, 'profile.html')
+
+
 def profile_view(request):
     if request.method == 'GET':
-        return render(request, 'profile.html')
+        profile_book_list = Book.objects.all()
+        profile_img_list = Book.objects.filter()
+        profile_review_list = []
+        profile_name_list = ['[청하]']
+        profile_follow_list = ['132']
+        profile_following_list = ['124']
 
+        if id == id:
+            for j in range(1, 15):
+                profile_review_list.append(
+                    {'title': '제목' + str(j), 'review': '[리뷰]' + str(j), 'date': '2022.06.07'}
+                )
+
+            return render(request, 'profile.html', {'profile_book': profile_book_list,
+                                                    'profile_review': profile_review_list,
+                                                    'profile_name': profile_name_list,
+                                                    'profile_follow': profile_follow_list,
+                                                    'profile_following': profile_following_list,
+                                                    'profile_img': profile_img_list
+                                                    })
+
+
+    #     id = request.GET['주소']
+    #     data = {
+    #        'html' : id,
+    #     }
+    # return render(request, 'profile.html', data)
 
 def crawling_bestseller():
     headers = {
