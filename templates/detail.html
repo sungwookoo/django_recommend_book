@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    도서 상세 정보
+{% endblock %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container timeline-container" style="">
+        <div class="col-md-7" style="width: 100%">
+            <div style="display:flex;flex-direction: column;justify-content: center;">
+                <div class="book-area" id="book-area" name="book-area"
+                     style="display: flex; flex-direction: column; flex-wrap: wrap">
+
+                    {# book data #}
+                    <div class="book" style="display: flex; flex-direction: row">
+                        <div class="book-img"
+                             style="width:100px; height: 140px; background-color: black; margin-right: 30px;">
+                            <img src="https://picsum.photos/100/120" class="thumb-book-img" id="thumb-book-img"
+                                 style="object-fit: cover">
+                        </div>
+                        <div class="book-info" style="display: flex; flex-direction: column;">
+                            <div class="book-info-title">
+                                <span style="font-size: large; font-weight: bold">{{ book.title }}</span>
+                            </div>
+                            <div class="book-info-author">
+                                <span style="font-size: small"> 저자 : {{ book.author }} | 출판사 : {{ book.publishar }}</span>
+                            </div>
+                            <div class="book-info-desc">
+                                <span style=""> {{ book.desc }} </span>
+                            </div>
+                        </div>
+                        <div class="book-btn">
+                            <a href="구매페이지url">
+                                <button class="w-btn-outline w-btn-skin-outline" type="button">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </a>
+                            <a href="관심등록">
+                                <button class="w-btn-outline w-btn-skin-outline" type="button" style="margin-top: 10px">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-area" style="margin-top: 50px">
+                <h5>사용자 리뷰</h5>
+                <form class="input-group mb-3" action="/book/review/{{ review.id }}" method="post">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id='comment' name='comment' placeholder="리뷰를 작성 해 주세요"/>
+                    <button class="btn btn-outline-secondary" type="submit">작성</button>
+                </form>
+                <hr>
+                <!-- 반복문이 들어 갈 곳 -->
+                {% for rv in review %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h5 class="mt-0"> {{ rv.content }} </h5>
+                                    <span> {{ rv.author }} </span>
+                                    <span> - {{ rv.created_at | timesince }} 전</span>
+                                </div>
+                                {% if rv.author == user %}
+                                    <div style="float: right">
+                                        <a href="/book/review/delete/{{ rv.id }}">
+                                            <span class="badge bg-danger">삭제</span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

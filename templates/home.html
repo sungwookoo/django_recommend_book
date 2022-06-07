@@ -5,44 +5,128 @@
 {% endblock %}
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
 
+        $(document).ready(function () {
+            window.setTimeout(function () {
+                $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+        })
+    </script>
+{% endblock %}
 {% block content %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center"
+             role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="container timeline-container" style="">
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">아이디</h5>
-                        <p class="card-text">소개</p>
-
                     </div>
                 </div>
             </div>
             <div class="col-md-7">
-                <div style="display:flex;flex-direction: column;justify-content: center;">
-                    <div class="top-area" style="display:flex; flex-direction: row; justify-content: flex-start; height: 50px; align-items: center">
-                        <span>Book List</span>
+                <div class="right-main" style="">
+                    <div class="top-area" style="">
+                        <p class="top-title">Book List</p>
+                        <form method="get" action="{% url 'book' %}" style="width:100%">
+                            <div class="search">
+                                <input type="text" class="searchTerm" placeholder="책 제목 또는 저자" id="search_text"
+                                       name="search_text">
+                                <button type="submit" class="searchButton">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <div class="book-area" id="book-area" name="book-area"
-                         style="display: flex; flex-direction: column; flex-wrap: wrap">
+                         style="">
 
                         {# book data #}
-                        <div class="book" style="display: flex; flex-direction: row">
-                            <div class="book-img" style="width:100px; height: 140px; background-color: black; margin-right: 30px;">
-                                <img src="https://picsum.photos/100/120" class="thumb-book-img" id="thumb-book-img"
-                                     style="object-fit: cover">
-                            </div>
-                            <div class="book-info" style="display: flex; flex-direction: column;">
-                                <div class="book-info-title">
-                                    <span style="font-size: large; font-weight: bold">책 제목</span>
+                        {#                        <div class="book" style="">#}
+                        {#                            <div class="book-img" style="">#}
+                        {#                                <a href="상세페이지url"><img src="https://picsum.photos/100/120" class="thumb-book-img"#}
+                        {#                                                        id="thumb-book-img"#}
+                        {#                                                        style=""></a>#}
+                        {#                            </div>#}
+                        {#                            <div class="book-info" style="">#}
+                        {#                                <div class="book-info-title">#}
+                        {#                                    <a href="상세페이지url"><span>책 제목</span></a>#}
+                        {#                                </div>#}
+                        {#                                <div class="book-info-text">#}
+                        {#                                    <span style=""> 저자 | 출판사 | 출간일 </span>#}
+                        {#                                </div>#}
+                        {#                                <div class="book-info-desc">#}
+                        {#                                    <span style=""> 김영하가 『살인자의 기억법』 이후 9 년 만에 내놓는 장편소설 『작별인사』는 그리 멀지 않은 미래를 배경으로, 별안간 삶이 송두리째 뒤흔들린 한 소년의 여정을 좇는다. 유명한 IT 기업의 연구원인 아버지와 쾌적하고 평화롭게 살아가던 철이는 어느날 갑자기 수용소로 끌려가 난생처음 날것의 감정으로 가득한 혼돈의 세계에 맞닥뜨리게 되면서 정신적, 신체적 위기에 직면한다. 동시에 자신처럼 사회에서 배제된 자들을 만나 처음으로 생생한 소속감을 느끼고 따뜻한 우정도 싹틔운다. 철이는 그들과 함께 수용소를 탈출하여 집으로 돌아가기 위해 길을 떠나지만 그 여정에는 피할 수 없는 질문이 기다리고 있다. </span>#}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                            <div class="book-btn">#}
+                        {#                                <a href="구매페이지url">#}
+                        {#                                    <button class="w-btn-outline w-btn-skin-outline" type="button">#}
+                        {#                                        <i class="fa-solid fa-cart-shopping"></i>#}
+                        {#                                    </button>#}
+                        {#                                </a>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+
+                        {% for book in all_book %}
+                            <div class="book" style="">
+                                <div class="book-img" style="">
+                                    <a href="/book/1"><img src="https://picsum.photos/100/120" class="thumb-book-img"
+                                                            id="thumb-book-img"
+                                                            style=""></a>
                                 </div>
-                                <div class="book-info-author">
-                                    <span style="font-size: small"> 저자 | 출판사 | 출간일 </span>
+                                <div class="book-info" style="">
+                                    <div class="book-info-title">
+                                        <a href="/book/1"><span>{{ book.title }}</span></a>
+                                    </div>
+                                    <div class="book-info-text">
+                                        <span style="">{{ book.author }} | {{ book.publishar }} </span>
+                                    </div>
+                                    <div class="book-info-desc">
+                                        <span style=""> {{ book.desc }} </span>
+                                    </div>
+                                </div>
+                                <div class="book-btn">
+                                    <a href="구매페이지url">
+                                        <button class="w-btn-outline w-btn-skin-outline" type="button">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
+                        {% endfor %}
+                        {% if all_book.has_next %}
+                            <a class="infinite-more-link" href="?search_text={{ search_text }}&page={{ all_book.next_page_number }}">More</a>
+                        {% endif %}
+                        <div class="loading" style="display: none;">
+                            Loading...
                         </div>
+                        <script>
+                            let infinite = new Waypoint.Infinite({
+                                element: $('.book')[0],
+                                onBeforePageLoad: function () {
+                                    $('.loading').show();
+                                },
+                                onAfterPageLoad: function ($items) {
+                                    $('.loading').hide();
+                                }
+                            });
+                        </script>
 
                     </div>
                     <div class="footer-area">
@@ -51,5 +135,8 @@
                 </div>
             </div>
         </div>
+        <a onclick="backToTop()" class="float">
+            <i class="fa-solid fa-angles-up my-float"></i>
+        </a>
     </div>
 {% endblock %}
