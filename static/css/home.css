@@ -48,6 +48,8 @@
 }
 
 .thumb-book-img {
+    width: 100px;
+    height: 130px;
     object-fit: cover
 }
 
