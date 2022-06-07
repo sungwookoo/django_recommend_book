@@ -104,7 +104,7 @@
 }
 
 .profile_book{
-    margin: 10px 10px 0px 10px;
+    margin: 20px 10px 0px 10px;
 }
 
 .profile_book_image_box{
@@ -113,10 +113,12 @@
 .profile_book_image{
     width: 150px;
     border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0.2, 0.2);
+    border: 1px solid grey;
 }
 
 .profile_book_name_box{
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .profile_book_name{
@@ -150,21 +152,23 @@
 .profile_riview{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     font-size: 20px;
     font-family: 'Hi Melody', cursive;
+    justify-content: space-around;
+    margin: 10px 10px 10px 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.profile_review_title{
 
 }
 
-.profile_riview_title{
+.profile_review_content{
 
 }
 
-.profile_riview_content{
-
-}
-
-.profile_riview_date{
+.profile_review_date{
 
 }
 

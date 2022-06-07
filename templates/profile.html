@@ -6,7 +6,7 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %} ">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
@@ -19,6 +19,11 @@
             <div class="profile_top-area" id="profile_top-area" name="profile_top-area" style="">
                 <div class="profile_follower">
                     팔로워
+                    {% for my_follow in profile_follow %}
+                    <div class="follower_num">
+                        {{ my_follow }}
+                    </div>
+                    {% endfor %}
                 </div>
                 <div class="profile_image_name_box">
                     <div class="profile_image_box">
@@ -32,6 +37,11 @@
                 </div>
                 <div class="profile_following">
                     팔로잉
+                    {% for my_following in profile_following %}
+                    <div class="following_num">
+                        {{ my_following }}
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -61,7 +71,7 @@
                     {#리뷰 반복문 들어갈 자리#}
                     {% for my_review in profile_review %}
                     <div class="profile_riview">
-                        <div class="profile_riview_title"> {{ my_review.title }}</div>
+                        <div class="profile_review_title"> {{ my_review.title }}</div>
                         <div class="profile_review_content"> {{ my_review.review }} </div>
                         <div class="profile_review_date">{{ my_review.date }}</div>
                     </div>
