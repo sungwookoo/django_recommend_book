@@ -86,7 +86,7 @@
                         {% for book in all_book %}
                             <div class="book" style="">
                                 <div class="book-img" style="">
-                                    <a href="/book/1"><img src="https://picsum.photos/100/120" class="thumb-book-img"
+                                    <a href="/book/1"><img src="{{ book.img_url }}" class="thumb-book-img"
                                                             id="thumb-book-img"
                                                             style=""></a>
                                 </div>
@@ -95,7 +95,7 @@
                                         <a href="/book/1"><span>{{ book.title }}</span></a>
                                     </div>
                                     <div class="book-info-text">
-                                        <span style="">{{ book.author }} | {{ book.publishar }} </span>
+                                        <span style="">{{ book.author }} | {{ book.publisher }} | {{ book.pub_date }}</span>
                                     </div>
                                     <div class="book-info-desc">
                                         <span style=""> {{ book.desc }} </span>
