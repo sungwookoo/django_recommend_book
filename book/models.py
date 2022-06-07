@@ -8,8 +8,9 @@ from django.conf import settings
 #                   'description': df['description'][index], 'author': df['author'][index],'price': df['price'][index],'pub_date': df['pub_date_2'][index],
 #                   'publisher': df['publisher'][index]})
 class Book(models.Model):
-    class Meta :
+    class Meta:
         db_table = "book"
+
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=50)
@@ -23,9 +24,24 @@ class Book(models.Model):
 class Review(models.Model):
     class Meta:
         db_table = "review"
+
     content = models.TextField()
     # star = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     book_master_seq = models.CharField(max_length=100)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+class BookData(models.Model):
+    class Meta:
+        db_table = "book_data"
+
+    master_seq = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
+    publisher = models.CharField(max_length=100)
+    price = models.CharField(max_length=100)
+    img_url = models.CharField(max_length=100, default='https://via.placeholder.com/150')
+    description = models.CharField(max_length=100)
+    pub_date_2 = models.CharField(max_length=100)
