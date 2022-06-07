@@ -3,6 +3,10 @@
 {% block title %}
     회원가입
 {% endblock %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="wrap_in">
@@ -28,6 +32,18 @@
                     </div>
                 {% endif %}
 
+
+                <p>마음에 드는 책을 하나 선택해 주세요!</p>
+                <div class="my_best_book">
+
+                    {% for bs in bestseller %}
+                        <div>
+                            <img class=bs_img src="{{ bs.img }}"><br>
+                            <input type='radio' name='book' value='{{ bs.title }}'/>
+                            {{ bs.title }}
+                        </div>
+                    {% endfor %}
+                </div>
                 <div class="button_signin">
                     <button type="submit" class="btn btn-primary">회원가입</button>
                     <a href="/sign-in" class="nav-link">로그인 페이지로</a>

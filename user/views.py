@@ -7,7 +7,8 @@ from django.contrib.auth import get_user_model  # 사용자가 있는지 검사�
 # user/views.py
 from django.contrib import auth  # 사용자 auth 기능
 from django.contrib.auth.decorators import login_required
-
+import requests
+from bs4 import BeautifulSoup
 
 def sign_up_view(request):
     if request.method == 'GET':
@@ -15,8 +16,9 @@ def sign_up_view(request):
         if user:  # 로그인이 되어있다면
             return redirect('/')
         else:  # 로그인이 되어있지 않다면
-
-            return render(request, 'signup.html', )
+            bestseller = crawling_bestseller()
+            print(bestseller)
+            return render(request, 'signup.html', {'bestseller':bestseller})
     elif request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -51,6 +53,7 @@ def sign_in_view(request):
             auth.login(request, me)
             return redirect('/')
         else:
+            crawling_bestseller()
             return render(request,'signin.html',{'error':'유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
     elif request.method == 'GET':
         user = request.user.is_authenticated
@@ -82,5 +85,16 @@ def profile_view(request):
         return render(request, 'profile.html')
 
 
-def crawling():
-    pass
+def crawling_bestseller():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get('http://www.kyobobook.co.kr/bestSellerNew/bestseller.laf', headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+    books = soup.select('#main_contents > ul > li')
+    bestseller=[]
+    for book in books:
+        # movie 안에 a 가 있으면,
+        best_image = book.select_one('div.cover > a > img')
+        bestseller.append({'title':best_image['alt'], 'img':best_image['src']})
+    return bestseller

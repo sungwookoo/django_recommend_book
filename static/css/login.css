@@ -36,6 +36,17 @@ section{
     width: 336px;
 }
 
+.bs_img {
+    height: 120px;
+    width: 90px;
+}
+
+.my_best_book{
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr
+}
+
+
 @media (min-width: 1024px){
 .layer_fix .btn_start {
     height: 56px;
