@@ -39,7 +39,7 @@
                     {% for bs in bestseller %}
                         <div>
                             <img class=bs_img src="{{ bs.img }}"><br>
-                            <input type='radio' name='book' value='{{ bs.title }}'/>
+                            <input type='radio' name='book' value='{{ bs.rank }}'/>
                             {{ bs.title }}
                         </div>
                     {% endfor %}
