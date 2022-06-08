@@ -6,7 +6,7 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %} ">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
@@ -70,13 +70,14 @@
                     {#리뷰 반복문 들어갈 자리#}
                     {% for my_review in profile_review %}
                     <div class="profile_riview">
-                        <div class="profile_review_title"> {{ my_review.title }}</div>
-                        <div class="profile_review_content"> {{ my_review.review }} </div>
-                        <div class="profile_review_date">{{ my_review.date }}</div>
+                        <div class="profile_review_title"> {{ my_review.book_master_seq }}</div>
+                        <div class="profile_review_content"> {{ my_review.content }} </div>
+                        <div class="profile_review_date">{{ my_review.created_at }}</div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

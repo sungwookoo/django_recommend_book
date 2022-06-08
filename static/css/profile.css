@@ -45,6 +45,7 @@
     font-size: 25px;
     font-family: 'Do Hyeon', sans-serif;
     color: darkblue;
+    cursor: pointer;
 }
 
 .profile_follower{
@@ -54,7 +55,7 @@
     margin-right: 50px;
     font-size: 23px;
     font-family: 'Do Hyeon', sans-serif;
-
+    cursor: pointer;
 }
 
 .follower_num{
@@ -62,7 +63,7 @@
     flex-direction: row;
     justify-content: center;
     font-family: 'Hi Melody', cursive;
-
+    cursor: pointer;
 }
 
 .profile_following{
@@ -72,7 +73,7 @@
     margin-left: 50px;
     font-size: 23px;
     font-family: 'Do Hyeon', sans-serif;
-
+    cursor: pointer;
 }
 
 .following_num{
@@ -80,6 +81,7 @@
     flex-direction: row;
     justify-content: center;
     font-family: 'Hi Melody', cursive;
+    cursor: pointer;
 }
 
 /*책 영역*/
@@ -104,19 +106,66 @@
     overflow-x: scroll;
 }
 
+
 .profile_book{
-    margin: 20px 15px 0px 15px;
+    margin: 20px 20px 0px 30px;
 }
 
+/*.profile_book_image_box{*/
+/*    width: 150px;*/
+/*    height: 220px;*/
+/*}*/
+
+/*.profile_book_image{*/
+/*    width: 150px;*/
+/*    height: 220px;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;*/
+/*}*/
+
 .profile_book_image_box{
+    width: 146px;
+    height: 226px;
+    border-radius: 5px;
+
+    position: relative;
+    z-index:1;
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    filter: brightness(115%);
+    box-shadow: rgba(136, 165, 191, 0.48) 10px 5px 20px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+
+.profile_book_image_box::before{
+    width: 146px;
+    height: 226px;
+    border-radius: 5px;
+
+    z-index:-1;
+    position: absolute;
+    content:"";
+    left:10px;
+    top:0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    filter: blur(0px);
 }
 
 .profile_book_image{
     width: 150px;
-    border-radius: 10px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0.2, 0.2);
-    border: 1px solid grey;
+    height: 220px;
+    margin: 3px 0px 0px 3px;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.2s linear;
+    cursor: pointer;
 }
+
+.profile_book_image:hover{
+    transform: scale(1.05);
+    border: solid 5px palegreen;
+}
+
 
 .profile_book_name_box{
     margin-top: 5px;
@@ -126,6 +175,10 @@
     font-family: 'Hi Melody', cursive;
     text-align: center;
     font-size: 18px;
+    width: 150px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 
@@ -153,24 +206,44 @@
 .profile_riview{
     display: flex;
     flex-direction: row;
-    font-size: 20px;
+    font-size: 15px;
     font-family: 'Hi Melody', cursive;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 10px 10px 10px 10px;
     border: 1px solid grey;
     border-radius: 5px;
 }
 
 .profile_review_title{
-
+    font-family: 'Do Hyeon', sans-serif;
+    flex-shrink: 0;
+    width: 120px;
+    height: 30px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-left: 15px;
+    cursor: pointer;
 }
 
 .profile_review_content{
-
+    flex-shrink: 0;
+    width: 800px;
+    height: 30px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    cursor: pointer;
 }
 
 .profile_review_date{
-
+    flex-shrink: 0;
+    width: 170px;
+    height: 30px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    cursor: pointer;
 }
 
 
