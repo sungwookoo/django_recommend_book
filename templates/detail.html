@@ -68,11 +68,19 @@
                                     <div style="float: right">
                                         <a href="/book/review/delete/{{ rv.id }}">
                                             <span class="badge bg-danger">삭제</span>
+                                            {% for message in messages %}
+                                                {{ message.tag }}
+                                                {{ message }}
+                                            {% endfor %}
                                         </a>
                                     </div>
                                     <div style="float: right; margin-right:5px;">
                                         <a href="/book/review/edit/{{ rv.id }}">
                                             <span class="badge bg-danger" style="background-color: #003366!important;">수정</span>
+                                            {% for message in messages %}
+                                                {{ message.tag }}
+                                                {{ message }}
+                                            {% endfor %}
                                         </a>
                                     </div>
                                 {% endif %}
@@ -83,7 +91,8 @@
                 {% endfor %}
                 <form class="input-group mb-3" action="/book/review/{{ book.id }}" method="post">
                     {% csrf_token %}
-                    <input type="text" class="form-control" id='my-review' name='my-review' placeholder="리뷰를 작성 해 주세요"/>
+                    <textarea class="form-control" cols="30" rows="5" id='my-review' name='my-review'
+                              placeholder="리뷰를 작성 해 주세요"></textarea>
                     <button class="btn btn-outline-secondary" type="submit">작성</button>
                     {% for message in messages %}
                         {{ message.tag }}
