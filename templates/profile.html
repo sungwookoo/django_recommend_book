@@ -84,11 +84,11 @@
                 <div class="profile_review_box">
                     {#리뷰 반복문 들어갈 자리#}
                     {% for my_review in profile_review %}
-                    <div class="profile_riview">
+                    <div class="profile_book_title">
                         <div class="profile_review_title">
                             <a style="text-decoration: none; color: black" href="/book/review">
                                 <button class="profile_review_title_button">
-                                    {{ my_review.book_master_seq }}
+                                    {{ my_review }}
                                 </button>
                             </a>
                         </div>
