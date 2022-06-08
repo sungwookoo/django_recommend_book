@@ -15,25 +15,17 @@ section{
     color: #fff;
 }
 
-.space_or {
-    position: relative;
-    height: 40px;
-    margin-bottom: 8px;
-}
-
-.space_or:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(0,0,0,0.08);
+.wrap_in_title {
+    height: 60px;
+    width: 336px;
 }
 
 .container_login {
-    height: 557px;
-    width: 336px;
+    height: 500px;
+    width: 330px;
+    margin-top: 80px;
+    -webkit-box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0);
+box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0);
 }
 
 .bs_img {
@@ -47,9 +39,32 @@ section{
 }
 
 
-@media (min-width: 1024px){
-.layer_fix .btn_start {
-    height: 56px;
-    font-size: 16px;
-    line-height: 56px;
-}}
+.btn_login{
+    display: block;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    width:330px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    background: red;
+    color: #fff;
+}
+
+.btn_to_signup{
+    display: block;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    width:330px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    color: black;
+}
+
+.choose_book{
+    text-align: center;
+    font-size: 20px;
+}
