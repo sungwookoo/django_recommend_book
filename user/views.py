@@ -147,11 +147,10 @@ def profile_view(request):
 def crawling_bestseller():
     bestseller = []
     book_number=0
+    page_ii = ['03','05','33']
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    for k in range(1, 35, 8):
-        k=str(k)
-        k=k.zfill(2)
+    for k in page_ii:
         data = requests.get(
             f'http://www.kyobobook.co.kr/categoryRenewal/categoryMain.laf?perPage=20&mallGb=KOR&linkClass={k}&menuCode=002',
             headers=headers)
