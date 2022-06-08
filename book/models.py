@@ -7,18 +7,6 @@ from django.conf import settings
 # book_data.append({'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
 #                   'description': df['description'][index], 'author': df['author'][index],'price': df['price'][index],'pub_date': df['pub_date_2'][index],
 #                   'publisher': df['publisher'][index]})
-class Book(models.Model):
-    class Meta:
-        db_table = "book"
-
-    title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    publisher = models.CharField(max_length=50)
-    description = models.TextField()
-    pub_date = models.DateField()
-    like_users = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    img_url = models.CharField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Review(models.Model):
@@ -45,3 +33,12 @@ class BookData(models.Model):
     img_url = models.CharField(max_length=100, default='https://via.placeholder.com/150')
     description = models.CharField(max_length=100, default='없음')
     pub_date_2 = models.DateField(blank=True, default='', null=True)
+
+
+class Like(models.Model):
+    class Meta:
+        db_table = "like"
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(BookData,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
