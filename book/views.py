@@ -4,12 +4,13 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import MeCab
 import pandas as pd
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 # Create your views here.
-from book.models import BookData
+from book.models import BookData,Book,Review
 
 
 def home(request):
@@ -106,11 +107,14 @@ def get_book(request):
             return render(request, 'home.html', {'all_book': book_list})
 
 
+# def detail_book(request, id):
+#     # book = (bookDB).objects.get(id=id)
+#     book = {'title': '제목' + str(id), 'author': '저자' + str(id), 'publisher': '출판사' + str(id), 'desc': '내용' + str(id)}
+#     return render(request, 'detail.html', {'book': book})
 def detail_book(request, id):
-    # book = (bookDB).objects.get(id=id)
-    book = {'title': '제목' + str(id), 'author': '저자' + str(id), 'publisher': '출판사' + str(id), 'desc': '내용' + str(id)}
-    return render(request, 'detail.html', {'book': book})
-
+    book = BookData.objects.get(id=id)
+    book_review = Review.objects.filter(book_master_seq=book).order_by('-created_at')
+    return render(request,'detail.html',{'book':book,'reviews':book_review})
 
 def insert_book_data(request):
     df = pd.read_table('book/doc2vec/book.csv', sep=',')
@@ -133,3 +137,33 @@ def insert_book_data(request):
 
     print(count)
     return redirect('/book')
+
+def write_review(request,id):
+    if request.method == 'POST':
+        review = request.POST.get("my-review","")
+        current_Book = BookData.objects.get(id=id)
+        RV = Review()
+        RV.content = review
+        RV.writer = request.user
+        RV.book_master_seq = current_Book
+        RV.save()
+
+        if RV:
+            messages.warning(request, "리뷰 작성 성공")
+
+        return redirect('/book')
+
+
+@login_required
+def delete_review(request,id):
+    rv = Review.objects.get(id=id)
+    current_book = rv.book_master_seq
+    rv.delete()
+    return redirect('/book'+str(current_book))
+
+@login_required
+def edit_review(request,id):
+    rv = Review.objects.get(id=id)
+    current_book = rv.book_master_seq
+    rv.delete()
+    return redirect('/book'+str(current_book))

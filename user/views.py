@@ -1,7 +1,7 @@
 # user/views.py
 from django.shortcuts import render, redirect
 
-from book.models import Book
+from book.models import Book, Review
 from .models import UserModel
 from book.models import Book
 from django.http import HttpResponse
@@ -117,25 +117,19 @@ def user_follow(request, id):
 def profile_view(request):
     if request.method == 'GET':
         profile_book_list = Book.objects.all()
-        profile_img_list = Book.objects.filter()
-        profile_review_list = []
+        profile_img_list = Book.objects.all()
+        profile_review_list = Review.objects.all()
         profile_name_list = ['[청하]']
         profile_follow_list = ['132']
         profile_following_list = ['124']
 
-        if id == id:
-            for j in range(1, 15):
-                profile_review_list.append(
-                    {'title': '제목' + str(j), 'review': '[리뷰]' + str(j), 'date': '2022.06.07'}
-                )
-
-            return render(request, 'profile.html', {'profile_book': profile_book_list,
-                                                    'profile_review': profile_review_list,
-                                                    'profile_name': profile_name_list,
-                                                    'profile_follow': profile_follow_list,
-                                                    'profile_following': profile_following_list,
-                                                    'profile_img': profile_img_list
-                                                    })
+        return render(request, 'profile.html', {'profile_book': profile_book_list,
+                                                'profile_review': profile_review_list,
+                                                'profile_name': profile_name_list,
+                                                'profile_follow': profile_follow_list,
+                                                'profile_following': profile_following_list,
+                                                'profile_img': profile_img_list
+                                                })
 
 
     #     id = request.GET['주소']
