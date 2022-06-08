@@ -21,7 +21,7 @@
                     <div class="book" style="display: flex; flex-direction: row">
                         <div class="book-img"
                              style="width:100px; height: 140px; background-color: black; margin-right: 30px;">
-                            <img src="https://picsum.photos/100/120" class="thumb-book-img" id="thumb-book-img"
+                            <img src={{ book.img_url }} class="thumb-book-img" id="thumb-book-img"
                                  style="object-fit: cover">
                         </div>
                         <div class="book-info" style="display: flex; flex-direction: column;">
@@ -29,10 +29,10 @@
                                 <span style="font-size: large; font-weight: bold">{{ book.title }}</span>
                             </div>
                             <div class="book-info-author">
-                                <span style="font-size: small"> 저자 : {{ book.author }} | 출판사 : {{ book.publishar }}</span>
+                                <span style="font-size: small"> 저자 : {{ book.author }} | 출판사 : {{ book.publisher }}</span>
                             </div>
                             <div class="book-info-desc">
-                                <span style=""> {{ book.desc }} </span>
+                                <span style=""> {{ book.description }} </span>
                             </div>
                         </div>
                         <div class="book-btn">
@@ -53,26 +53,26 @@
             </div>
             <div class="footer-area" style="margin-top: 50px">
                 <h5>사용자 리뷰</h5>
-                <form class="input-group mb-3" action="/book/review/{{ review.id }}" method="post">
-                    {% csrf_token %}
-                    <input type="text" class="form-control" id='comment' name='comment' placeholder="리뷰를 작성 해 주세요"/>
-                    <button class="btn btn-outline-secondary" type="submit">작성</button>
-                </form>
                 <hr>
                 <!-- 반복문이 들어 갈 곳 -->
-                {% for rv in review %}
+                {% for rv in reviews %}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="media">
                                 <div class="media-body">
                                     <h5 class="mt-0"> {{ rv.content }} </h5>
-                                    <span> {{ rv.author }} </span>
+                                    <span> {{ rv.writer }} </span>
                                     <span> - {{ rv.created_at | timesince }} 전</span>
                                 </div>
-                                {% if rv.author == user %}
+                                {% if rv.writer == user %}
                                     <div style="float: right">
                                         <a href="/book/review/delete/{{ rv.id }}">
                                             <span class="badge bg-danger">삭제</span>
+                                        </a>
+                                    </div>
+                                    <div style="float: right; margin-right:5px;">
+                                        <a href="/book/review/edit/{{ rv.id }}">
+                                            <span class="badge bg-danger" style="background-color: #003366!important;">수정</span>
                                         </a>
                                     </div>
                                 {% endif %}
@@ -81,6 +81,15 @@
                     </div>
                     <hr>
                 {% endfor %}
+                <form class="input-group mb-3" action="/book/review/{{ book.id }}" method="post">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id='my-review' name='my-review' placeholder="리뷰를 작성 해 주세요"/>
+                    <button class="btn btn-outline-secondary" type="submit">작성</button>
+                    {% for message in messages %}
+                        {{ message.tag }}
+                        {{ message }}
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </div>
