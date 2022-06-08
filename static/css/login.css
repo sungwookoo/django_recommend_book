@@ -1,0 +1,71 @@
+section{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+.btn_naver{
+    display: block;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    background: rgb(40,209,17);
+    color: #fff;
+}
+
+.wrap_in_title {
+    height: 60px;
+    width: 336px;
+}
+
+.container_login {
+    height: 500px;
+    width: 330px;
+    margin-top: 80px;
+    -webkit-box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0);
+box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.bs_img {
+    height: 120px;
+    width: 90px;
+}
+
+.my_best_book{
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr
+}
+
+
+.btn_login{
+    display: block;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    width:330px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    background: red;
+    color: #fff;
+    border-color: red;
+}
+
+.btn_to_signup{
+    display: block;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    width:330px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    color: black;
+}
+
+.choose_book{
+    text-align: center;
+    font-size: 20px;
+}

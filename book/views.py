@@ -160,3 +160,10 @@ def delete_review(request,id):
     current_book = rv.book_master_seq
     rv.delete()
     return redirect('/book'+str(current_book))
+
+@login_required
+def edit_review(request,id):
+    rv = Review.objects.get(id=id)
+    current_book = rv.book_master_seq
+    rv.delete()
+    return redirect('/book'+str(current_book))
