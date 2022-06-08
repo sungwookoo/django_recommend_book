@@ -26,29 +26,27 @@ def sign_up_view(request):
         password = request.POST.get('password', '')
         password2 = request.POST.get('password2', '')
         my_book = request.POST.get('book', '')
-        my_title=bestseller[int(my_book)-1]['title']
-        my_img=bestseller[int(my_book)-1]['img']
-        print(my_title)
         if password != password2:
             # 패스워드가 다르다는 에러가 필요합니다. {'error':'에러문구'} 를 만들어서 전달합니다.
-            return render(request, 'signup.html', {'error': '패스워드를 확인 해 주세요!'})
+            return render(request, 'signup.html', {'bestseller':bestseller, 'error': '패스워드를 확인 해 주세요!'})
         else:
             if username == '' or password == '':
                 # 사용자 저장을 위한 username과 password가 필수라는 것을 얘기 해 줍니다.
-                return render(request, 'signup.html', {'error': '사용자 이름과 패스워드는 필수 값 입니다'})
+                return render(request, 'signup.html', {'bestseller':bestseller, 'error': '사용자 이름과 패스워드는 필수 값 입니다'})
 
             exist_user = get_user_model().objects.filter(username=username)
             if exist_user:
                 return render(request, 'signup.html',
                               {'error': '사용자가 존재합니다.'})  # 사용자가 존재하기 때문에 사용자를 저장하지 않고 회원가입 페이지를 다시 띄움
             else:
+                book_num = int(my_book) - 1
                 UserModel.objects.create_user(username=username, password=password)
                 first_book=Book()
-                first_book.title = my_title
-                first_book.img_url = my_img
+                first_book.title = bestseller[book_num]['title']
+                first_book.img_url = bestseller[book_num]['img']
                 first_book.pub_date = '1111-11-11'
-                first_book.description = 'description'
-                first_book.publisher = 'publisher'
+                first_book.description = bestseller[book_num]['description']
+                first_book.publisher = bestseller[book_num]['publication']
                 first_book.created_at = '1'
                 like_users_id=UserModel.objects.values().order_by('-id')
                 first_book.like_users_id=like_users_id[0]['id']
@@ -148,9 +146,10 @@ def profile_view(request):
 
 def crawling_bestseller():
     bestseller = []
+    book_number=0
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    for k in range(1, 35, 2):
+    for k in range(1, 35, 8):
         k=str(k)
         k=k.zfill(2)
         data = requests.get(
@@ -160,6 +159,7 @@ def crawling_bestseller():
         books = soup.select('#prd_list_type1 > li')
 
         for i in range(0, len(books), 2):
+            book_number+=1
             best_image = \
             books[i].select_one('div.thumb_cont > div.info_area > div.cover_wrap > div.cover > a > span > img')['src']
             best_title = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.title > a > strong').text
@@ -171,6 +171,6 @@ def crawling_bestseller():
                 'div.thumb_cont > div.info_area > div.detail > div.pub_info > span:nth-child(3)').text
             best_description = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.info > span').text
             bestseller.append(
-                {'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
+                {'book_number':book_number, 'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
                  'pub_day': best_pub_day, 'description': best_description})
     return bestseller
