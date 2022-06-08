@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    리뷰 수정
+{% endblock %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<form class="input-group mb-3" action="/book/review/edit/update/{{ review.id }}" method="post">
+    {% csrf_token %}
+    <textarea class="form-control" cols="30" rows="5" id='my-review' name='my-review'
+              placeholder="리뷰를 작성 해 주세요">{{ review.content }}</textarea>
+    <button class="btn btn-outline-secondary" type="submit">작성</button>
+    {% for message in messages %}
+        {{ message.tag }}
+        {{ message }}
+    {% endfor %}
+</form>
+{% endblock %}

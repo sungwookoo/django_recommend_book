@@ -157,13 +157,21 @@ def write_review(request,id):
 @login_required
 def delete_review(request,id):
     rv = Review.objects.get(id=id)
-    current_book = rv.book_master_seq
     rv.delete()
-    return redirect('/book'+str(current_book))
+    messages.warning(request,"리뷰를 삭제했습니다")
+    return redirect('/book')
 
 @login_required
 def edit_review(request,id):
     rv = Review.objects.get(id=id)
-    current_book = rv.book_master_seq
-    rv.delete()
-    return redirect('/book'+str(current_book))
+    context = {
+        'review':rv,
+    }
+    return render(request,'edit.html',context)
+
+def update(request,id):
+    review = Review.objects.get(id=id)
+    review.content = request.POST.get('my-review')
+    review.save()
+    messages.warning(request, "리뷰를 수정했습니다")
+    return redirect('/book')
