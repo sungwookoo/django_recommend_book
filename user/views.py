@@ -1,9 +1,9 @@
 # user/views.py
 from django.shortcuts import render, redirect
 
-from book.models import Book, Review
+from book.models import BookData, Review
 from .models import UserModel
-from book.models import Book
+from book.models import Like
 from django.http import HttpResponse
 # user/views.py
 from django.contrib.auth import get_user_model  # 사용자가 있는지 검사하는 함수
