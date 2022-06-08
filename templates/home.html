@@ -86,9 +86,15 @@
                         {% for book in all_book %}
                             <div class="book" style="">
                                 <div class="book-img" style="">
+                                    {% if book.img_url == 'nan' %}
+                                    <a href="/book/1"><img src="https://via.placeholder.com/150" class="thumb-book-img"
+                                                            id="thumb-book-img"
+                                                            style=""></a>
+                                    {% else %}
                                     <a href="/book/1"><img src="{{ book.img_url }}" class="thumb-book-img"
                                                             id="thumb-book-img"
                                                             style=""></a>
+                                    {% endif %}
                                 </div>
                                 <div class="book-info" style="">
                                     <div class="book-info-title">
