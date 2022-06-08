@@ -50,6 +50,7 @@ box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 
     text-align: center;
     background: red;
     color: #fff;
+    border-color: red;
 }
 
 .btn_to_signup{
