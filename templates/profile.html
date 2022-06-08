@@ -27,7 +27,7 @@
                 <div class="profile_image_name_box">
                     <div class="profile_image_box">
                         <a href="/profile/">
-                        <img class="profile_image" src="https://studio.zepeto.me/img/img_slider_02.png">
+                        <img class="profile_image" src="https://cdn.dribbble.com/users/706421/screenshots/17772059/media/cb14630db26b8821c8e23b66b368cdf1.gif">
                         </a>
                     </div>
                     {% for my_name in profile_name %}
@@ -49,7 +49,9 @@
 
             <div class="profile_book-area" id="profile_book-area" name="profile_book-area" style="">
                 <div class="profile_book_category">
-                책장
+                    <button class="profile_book_category_button">
+                        책장
+                    </button>
                 </div>
                 <div class="profile_book_box">
                     {#책 반복문 들어갈 자리#}
@@ -61,7 +63,11 @@
                             </a>
                         </div>
                         <div class="profile_book_name_box">
-                            <div class="profile_book_name">{{ my_book.title }}</div>
+                            <div class="profile_book_name">
+                                <button class="profile_book_name_button">
+                                    {{ my_book.title }}
+                                </button>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -70,7 +76,11 @@
 
 
             <div class="profile_review-area" id="profile_review-area" name="profile_review-area" style="">
-                <div class="profile_review_category">히스토리</div>
+                <div class="profile_review_category">
+                    <button class="profile_review_category_button">
+                        히스토리
+                    </button>
+                </div>
                 <div class="profile_review_box">
                     {#리뷰 반복문 들어갈 자리#}
                     {% for my_review in profile_review %}
