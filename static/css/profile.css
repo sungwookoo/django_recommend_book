@@ -43,44 +43,42 @@
     flex-direction: row;
     justify-content: center ;
     font-size: 25px;
-    font-family: 'Do Hyeon', sans-serif;
     color: darkblue;
     cursor: pointer;
 }
 
 .profile_follower{
+    font-family: 'Do Hyeon', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center ;
     margin-right: 50px;
     font-size: 23px;
-    font-family: 'Do Hyeon', sans-serif;
     cursor: pointer;
 }
 
 .follower_num{
+    font-family: 'Yeon Sung', cursive;    display: flex;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    font-family: 'Hi Melody', cursive;
     cursor: pointer;
 }
 
 .profile_following{
+    font-family: 'Do Hyeon', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center ;
     margin-left: 50px;
     font-size: 23px;
-    font-family: 'Do Hyeon', sans-serif;
     cursor: pointer;
 }
 
 .following_num{
-    display: flex;
+    font-family: 'Yeon Sung', cursive;    display: flex;
     flex-direction: row;
     justify-content: center;
-    font-family: 'Hi Melody', cursive;
     cursor: pointer;
 }
 
@@ -93,17 +91,29 @@
 }
 
 .profile_book_category{
-    font-family: 'Do Hyeon', sans-serif;
-    font-size: 25px;
 
+    font-size: 25px;
 }
 
 .profile_book_box{
     display: flex;
     flex-direction: row;
     height: 300px;
-    border: 1px solid grey;
     overflow-x: scroll;
+    border: 1px outset grey;
+    border-radius: 2px;
+
+     /*border: 2px solid;*/
+     /*border-image-source : linear-gradient(to bottom, #f64f59, #c471ed, #12c2e9);*/
+     /*border-image-slice : 1;*/
+
+    /*border: 2px inset transparent;*/
+    /*border-radius: 5px;*/
+    /*background-image: linear-gradient(#fff, #fff),*/
+    /*linear-gradient(to right, red 0%,  orange 100%);*/
+    /*background-origin: border-box;*/
+    /*background-clip: content-box, border-box;*/
+
 }
 
 
@@ -172,9 +182,9 @@
 }
 
 .profile_book_name{
-    font-family: 'Hi Melody', cursive;
+    font-family: 'Noto Serif KR', serif;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     width: 150px;
     white-space: nowrap;
     overflow:hidden;
@@ -191,7 +201,6 @@
 }
 
 .profile_review_category{
-    font-family: 'Do Hyeon', sans-serif;
     font-size: 25px;
 }
 
@@ -206,8 +215,7 @@
 .profile_riview{
     display: flex;
     flex-direction: row;
-    font-size: 15px;
-    font-family: 'Hi Melody', cursive;
+    font-size: 13px;
     justify-content: space-between;
     margin: 10px 10px 10px 10px;
     border: 1px solid grey;
@@ -215,7 +223,6 @@
 }
 
 .profile_review_title{
-    font-family: 'Do Hyeon', sans-serif;
     flex-shrink: 0;
     width: 120px;
     height: 30px;
@@ -227,6 +234,7 @@
 }
 
 .profile_review_content{
+    font-family: 'Noto Serif KR', serif;
     flex-shrink: 0;
     width: 800px;
     height: 30px;
