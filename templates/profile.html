@@ -6,7 +6,7 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&family=Yeon+Sung&display=swap" rel="stylesheet">
@@ -77,17 +77,23 @@
                     <div class="profile_riview">
                         <div class="profile_review_title">
                             <a style="text-decoration: none; color: black" href="/book/review">
-                                {{ my_review.book_master_seq }}
+                                <button class="profile_review_title_button">
+                                    {{ my_review.book_master_seq }}
+                                </button>
                             </a>
                         </div>
                         <div class="profile_review_content">
                             <a style="text-decoration: none; color: black" href="/book/review">
-                            {{ my_review.content }}
+                                <button class="profile_review_content_button">
+                                    {{ my_review.content }}
+                                </button>
                             </a>
                         </div>
                         <div class="profile_review_date">
                             <a style="text-decoration: none; color: black" href="/book/review">
-                            {{ my_review.created_at }}
+                                <button class="profile_review_date_button">
+                                    {{ my_review.created_at }}
+                                </button>
                             </a>
                         </div>
                     </div>

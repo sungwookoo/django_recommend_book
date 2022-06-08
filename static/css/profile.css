@@ -210,6 +210,8 @@
     height: 300px;
     border: 1px solid grey;
     overflow-y: scroll;
+    border: none;
+
 }
 
 .profile_riview{
@@ -220,18 +222,40 @@
     margin: 10px 10px 10px 10px;
     border: 1px solid grey;
     border-radius: 5px;
+    border: none;
+        background-image: url("https://cdn.dribbble.com/users/59100/screenshots/13968489/media/15bef85c37eb3ea3be05051961e3c40d.jpg?compress=1&resize=1200x900&vertical=top");
+
 }
 
 .profile_review_title{
     flex-shrink: 0;
-    width: 120px;
+    width: 100px;
     height: 30px;
     white-space: nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
     margin-left: 15px;
-    cursor: pointer;
 }
+
+.profile_review_title_button{
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*appearance: none;*/
+
+    margin-top: 3.5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 100px;
+    border: none;
+    border-radius: 4px;
+    background: lightseagreen;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
 
 .profile_review_content{
     font-family: 'Noto Serif KR', serif;
@@ -241,7 +265,25 @@
     white-space: nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+}
+
+.profile_review_content_button{
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*appearance: none;*/
+
+    margin-top: 3.5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 800px;
+    border: none;
+    border-radius: 4px;
+    background: lightcoral;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     cursor: pointer;
+    transition: 0.5s;
 }
 
 .profile_review_date{
@@ -251,7 +293,23 @@
     white-space: nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-    cursor: pointer;
 }
 
+.profile_review_date_button{
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*appearance: none;*/
 
+    margin-top: 3.5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 160px;
+    border: none;
+    border-radius: 4px;
+    background: cornflowerblue;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: 0.5s;
+}
