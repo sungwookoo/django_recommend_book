@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
+
 def sign_up_view(request):
     first_like=BookData.objects.filter(master_seq__range=(1,70))
     if request.method == 'GET':
@@ -19,7 +20,9 @@ def sign_up_view(request):
         if user:  # 로그인이 되어있다면
             return redirect('/')
         else:  # 로그인이 되어있지 않다면
+
             return render(request, 'signup.html', {'bestseller':first_like})
+
     elif request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -33,17 +36,20 @@ def sign_up_view(request):
                 # 사용자 저장을 위한 username과 password가 필수라는 것을 얘기 해 줍니다.
                 return render(request, 'signup.html', {'bestseller':first_like, 'error': '사용자 이름과 패스워드는 필수 값 입니다'})
 
+
             exist_user = get_user_model().objects.filter(username=username)
             if exist_user:
                 return render(request, 'signup.html',
                               {'error': '사용자가 존재합니다.'})  # 사용자가 존재하기 때문에 사용자를 저장하지 않고 회원가입 페이지를 다시 띄움
             else:
                 UserModel.objects.create_user(username=username, password=password)
+
                 first_book=Like()
                 like_users_id=UserModel.objects.values().order_by('-id')
                 like_book_id=BookData.objects.filter(master_seq=int(my_book)).values()
                 first_book.user_id=like_users_id[0]['id']
                 first_book.book_id= list(like_book_id)[0]['id']
+
                 first_book.save()
 
                 return redirect('/sign-in')  # 회원가입이 완료되었으므로 로그인 페이지로 이동
@@ -61,7 +67,9 @@ def sign_in_view(request):
             auth.login(request, me)
             return redirect('/')
         else:
+
             return render(request,'signin.html',{'error':'유저이름 혹은 패스워드를 확인 해 주세요'})  # 로그인 실패
+
 
     elif request.method == 'GET':
         user = request.user.is_authenticated
@@ -86,6 +94,14 @@ def user_follow(request, id):
     else:
         click_user.followee.add(request.user)
     return redirect('/')
+
+
+@login_required
+def user_view(request):
+    if request.method == 'GET':
+        # 사용자를 불러오기, exclude와 request.user.username 를 사용해서 '로그인 한 사용자'를 제외하기
+        user_list = UserModel.objects.all().exclude(username=request.user.username)
+        return render(request, 'user_list.html', {'user_list': user_list})
 
 
 # 프로필
