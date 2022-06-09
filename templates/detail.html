@@ -8,10 +8,27 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        window.setTimeout(function () {
+            $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 4000);
+    </script>
 {% endblock %}
 
 {% block content %}
     <div class="container timeline-container" style="">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center"
+                 role="alert">
+                {{ message }}
+                {#                <button type="button" class="close" data-dismiss="alert"#}
+                {#                        aria-label="Close">#}
+                {#                    <span aria-hidden="true">&times;</span>#}
+                {#                </button>#}
+            </div>
+        {% endfor %}
         <div class="col-md-7" style="width: 100%">
             <div style="display:flex;flex-direction: column;justify-content: center;">
                 <div class="book-area" id="book-area" name="book-area"
@@ -41,10 +58,18 @@
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </button>
                             </a>
-                            <a href="관심등록">
-                                <button class="w-btn-outline w-btn-skin-outline" type="button" style="margin-top: 10px">
-                                    <i class="fa-solid fa-heart"></i>
-                                </button>
+                            <a href="/book/likes/{{ book.id }}">
+                                {% if like_exist %}
+                                    <button class="w-btn-outline w-btn-skin-outline like-btn" type="button"
+                                            style="margin-top: 10px;color:red;">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                {% else %}
+                                    <button class="w-btn-outline w-btn-skin-outline like-btn" type="button"
+                                            style="margin-top: 10px;color:white;">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                {% endif %}
                             </a>
                         </div>
                     </div>
@@ -68,19 +93,11 @@
                                     <div style="float: right">
                                         <a href="/book/review/delete/{{ rv.id }}">
                                             <span class="badge bg-danger">삭제</span>
-                                            {% for message in messages %}
-                                                {{ message.tag }}
-                                                {{ message }}
-                                            {% endfor %}
                                         </a>
                                     </div>
                                     <div style="float: right; margin-right:5px;">
                                         <a href="/book/review/edit/{{ rv.id }}">
                                             <span class="badge bg-danger" style="background-color: #003366!important;">수정</span>
-                                            {% for message in messages %}
-                                                {{ message.tag }}
-                                                {{ message }}
-                                            {% endfor %}
                                         </a>
                                     </div>
                                 {% endif %}
@@ -94,10 +111,6 @@
                     <textarea class="form-control" cols="30" rows="5" id='my-review' name='my-review'
                               placeholder="리뷰를 작성 해 주세요"></textarea>
                     <button class="btn btn-outline-secondary" type="submit">작성</button>
-                    {% for message in messages %}
-                        {{ message.tag }}
-                        {{ message }}
-                    {% endfor %}
                 </form>
             </div>
         </div>
