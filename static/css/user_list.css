@@ -1,0 +1,16 @@
+.my_name_button{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 23px;
+    margin-top: 3.5px;
+    text-align: center;
+    padding: 0 10px;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    border: none;
+    border-radius: 7px;
+    background-image: url("https://cdn.dribbble.com/users/19950/screenshots/16816902/media/ffd8e585dde623cbf29ccc24b2a783b3.jpg?compress=1&resize=1200x900&vertical=top");
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: 0.5s;
+}
