@@ -43,30 +43,31 @@ def get_book(request):
         #          'publisher': df['publisher'][index]})
 
         # df = pd.read_table('book/doc2vec/book.csv', sep=',')
-        df = pd.DataFrame(list(BookData.objects.all().values()))
-        mecab = MeCab.Tagger()
-        df['token'] = 0
-        for i in range(0, len(df['title'])):
-            tmp = mecab.parse(df['title'][i]).split()
-            #     # tmp2 = mecab.parse(str(df['description'][i])).split()
-            #     # tmp3 = tmp + tmp2
 
-            tokens = []
-            for k in range(0, len(tmp) - 2, 2):
-                tokens.append(tmp[k])
-            df['token'][i] = tokens
-        # documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(df['token'])]
-        # model = Doc2Vec(documents, vector_size=100, window=3, epochs=1, min_count=3, workers=4)
-        model = gensim.models.Doc2Vec.load('book/doc2vec/model.doc2vec')
-        inferred_doc_vec = model.infer_vector(df['token'])
-        most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=10)
-        book_list = []
-        for index, similarity in most_similar_docs:
-            book_list.append(
-                {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
-                 'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
-                 'pub_date': df['pub_date_2'][index],
-                 'publisher': df['publisher'][index]})
+        # df = pd.DataFrame(list(BookData.objects.all().values()))
+        # mecab = MeCab.Tagger()
+        # df['token'] = 0
+        # for i in range(0, len(df['title'])):
+        #     tmp = mecab.parse(df['title'][i]).split()
+        #     #     # tmp2 = mecab.parse(str(df['description'][i])).split()
+        #     #     # tmp3 = tmp + tmp2
+        #
+        #     tokens = []
+        #     for k in range(0, len(tmp) - 2, 2):
+        #         tokens.append(tmp[k])
+        #     df['token'][i] = tokens
+        # # documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(df['token'])]
+        # # model = Doc2Vec(documents, vector_size=100, window=3, epochs=1, min_count=3, workers=4)
+        # model = gensim.models.Doc2Vec.load('book/doc2vec/model.doc2vec')
+        # inferred_doc_vec = model.infer_vector(df['token'])
+        # most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=10)
+        # book_list = []
+        # for index, similarity in most_similar_docs:
+        #     book_list.append(
+        #         {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
+        #          'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
+        #          'pub_date': df['pub_date_2'][index],
+        #          'publisher': df['publisher'][index]})
 
         book_list = BookData.objects.all()
         search_text = request.GET.get('search_text', '')
