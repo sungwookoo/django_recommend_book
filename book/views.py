@@ -10,10 +10,13 @@ import MeCab
 import pandas as pd
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import re
+from datetime import datetime
 
 # Create your views here.
 from book.models import BookData, Like, Review
 from django.views.decorators.http import require_POST
+import requests
+from bs4 import BeautifulSoup
 
 
 def home(request):
@@ -212,3 +215,52 @@ def likes(request, book_id):
             return redirect('/book/' + str(book.id))
 
     return redirect('/sign-in')
+
+
+def insert_crawling_data(request):
+    bestseller = []
+    book_number=0
+    page_ii = ['01','05','13','15','29','32','33']
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    for k in page_ii:
+        data = requests.get(
+            f'http://www.kyobobook.co.kr/categoryRenewal/categoryMain.laf?perPage=20&mallGb=KOR&linkClass={k}&menuCode=002',
+            headers=headers)
+        soup = BeautifulSoup(data.text, 'html.parser')
+        books = soup.select('#prd_list_type1 > li')
+
+        for i in range(0, 20, 2):
+            book_number+=1
+            best_image = books[i].select_one('div.thumb_cont > div.info_area > div.cover_wrap > div.cover > a > span > img')['src']
+            best_title = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.title > a > strong').text
+            best_author = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.pub_info > span.author').text
+            best_publication = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.pub_info > span.publication').text
+            best_pub_day = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.pub_info > span:nth-child(3)').text
+            best_pub_day = best_pub_day.strip().replace('.','-').replace('\t','').replace('\r','').replace('\n','')
+            best_price = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.price > strong.sell_price').text
+            best_price = best_price.replace('원','').replace(',','')
+            best_description = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.info > span').text
+            bestseller.append(
+                {'book_number':book_number, 'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
+                 'pub_day': best_pub_day, 'price':best_price,'description': best_description})
+            print(book_number)
+    print(len(bestseller))
+    for index in range(0, len(bestseller)):
+        book_data = BookData()
+        book_data.master_seq = bestseller[index]['book_number']
+        book_data.title = bestseller[index]['title']
+        book_data.img_url = bestseller[index]['img']
+        book_data.description = bestseller[index]['description']
+        book_data.author = bestseller[index]['author']
+        book_data.price = bestseller[index]['price']
+        book_data.pub_date_2 = datetime.strptime(bestseller[index]['pub_day'][0:10], "%Y-%m-%d")
+        book_data.publisher = bestseller[index]['publication']
+        book_data.save()
+        print(bestseller[index]['book_number'])
+
+    return redirect('/book')
