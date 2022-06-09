@@ -248,8 +248,7 @@ def insert_crawling_data(request):
             bestseller.append(
                 {'book_number':book_number, 'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
                  'pub_day': best_pub_day, 'price':best_price,'description': best_description})
-            print(book_number)
-    print(len(bestseller))
+
     for index in range(0, len(bestseller)):
         book_data1 = BookData()
         book_data1.master_seq = bestseller[index]['book_number']
@@ -261,6 +260,5 @@ def insert_crawling_data(request):
         book_data1.pub_date_2 = datetime.strptime(bestseller[index]['pub_day'][0:10], "%Y-%m-%d")
         book_data1.publisher = bestseller[index]['publication']
         book_data1.save()
-        print(bestseller[index]['book_number'])
 
     return redirect('/book')
