@@ -236,10 +236,6 @@
 }
 
 .profile_review_category_button{
-    /*-webkit-appearance: none;*/
-    /*-moz-appearance: none;*/
-    /*appearance: none;*/
-
     margin-top: 3.5px;
     text-align: center;
     text-decoration: none;
@@ -258,20 +254,18 @@
     display: flex;
     flex-direction: column;
     height: 300px;
-    border: 1px solid grey;
     overflow-y: scroll;
     border: none;
     border-radius: 10px;
     background-image: url("https://cdn.dribbble.com/users/59100/screenshots/14757059/media/f7e3a92944cea7d74e4103327f882994.jpg?compress=1&resize=1200x900&vertical=top");
 }
 
-.profile_riview{
+.profile_review{
     display: flex;
     flex-direction: row;
     font-size: 13px;
     justify-content: space-between;
     margin: 10px 10px 10px 10px;
-    border: 1px solid grey;
     border-radius: 5px;
     border: none;
 }
@@ -314,7 +308,6 @@
     flex-shrink: 0;
     width: 800px;
     height: 30px;
-
 }
 
 .profile_review_content_button{
@@ -364,5 +357,4 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     transition: 0.5s;
-
 }

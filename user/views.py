@@ -1,9 +1,8 @@
 # user/views.py
 from django.shortcuts import render, redirect
 
-from book.models import Book, Review, BookData
+from book.models import Like, Review, BookData
 from .models import UserModel
-from book.models import Book
 from django.http import HttpResponse
 # user/views.py
 from django.contrib.auth import get_user_model  # 사용자가 있는지 검사하는 함수
@@ -112,55 +111,14 @@ def user_follow(request, id):
 
 @login_required
 def profile_view(request, id):
-    if id is None:
-        me = request.user
-        profile_book_list = Book.objects.filter(user_id=me.id)
-        profile_review_list = Review.objects.filter(writer=id)
+    profile_book = Like.objects.filter(user_id=id)
+    profile_review = Review.objects.filter(writer_id=id)
+    profile_user = UserModel.objects.filter(id=id)
 
-    else:
-        profile_book_list = Book.objects.filter(user_id=id)
-        profile_review_list = Review.objects.filter(writer=id)
-
-        # profile_book_list = Book.objects.all()
-        # profile_review_list = Review.objects.all()
-        profile_img_list = Book.objects.all()
-        profile_name_list = UserModel.objects.all()
-        profile_follow_list = ['132']
-        profile_following_list = ['124']
-        profile_book = BookData.objects.get(id=profile_review_list.book_master_seq)
-        profile_book_title = profile_book.title
-
-    return render(request, 'profile.html', {'profile_book': profile_book_list,
-                                            'profile_review': profile_review_list,
-                                            'profile_name': profile_name_list,
-                                            'profile_follow': profile_follow_list,
-                                            'profile_following': profile_following_list,
-                                            'profile_img': profile_img_list,
-                                            'profile_book_title': profile_book_title
+    return render(request, 'profile.html', {'profile_book': profile_book,
+                                            'profile_review': profile_review,
+                                            'profile_user': profile_user,
                                             })
-
-
-
-def profile_view(request):
-    if request.method == 'GET':
-        profile_book_list = Book.objects.all()
-        profile_img_list = Book.objects.all()
-        profile_review_list = Review.objects.all()
-        profile_name_list = UserModel.objects.all()
-        profile_follow_list = ['132']
-        profile_following_list = ['124']
-        profile_book = BookData.objects.get(id=profile_review_list.book_master_seq)
-        profile_book_title = profile_book.title
-
-        return render(request, 'profile.html', {'profile_book': profile_book_list,
-                                                'profile_review': profile_review_list,
-                                                'profile_name': profile_name_list,
-                                                'profile_follow': profile_follow_list,
-                                                'profile_following': profile_following_list,
-                                                'profile_img': profile_img_list,
-                                                'profile_book_title': profile_book_title
-                                                })
-
 
 
 def crawling_bestseller():
