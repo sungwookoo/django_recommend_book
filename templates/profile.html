@@ -6,7 +6,7 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&family=Yeon+Sung&display=swap" rel="stylesheet">
@@ -16,12 +16,16 @@
     <div class="container timeline-container" style="">
         <div class="profile_container" style="">
             <div class="profile_top-area" id="profile_top-area" name="profile_top-area" style="">
+                {% for my_follow in profile_user %}
                 <div class="profile_follower">
                     팔로워
-                    <div class="follower_num">
-                        {{ user.followee.count }}
-                    </div>
+                    <a style="text-decoration: none; color: black" href="/user">
+                        <div class="follower_num">
+                            {{ my_follow.followee.count }}
+                        </div>
+                    </a>
                 </div>
+                {% endfor %}
                 <div class="profile_image_name_box">
                     {% for my_name in profile_user %}
                     <div class="profile_image_box">
@@ -30,23 +34,29 @@
                         </a>
                     </div>
                     <div class="profile_name">
-                    {{ my_name.username }}
+                        <button class="profile_name_button">
+                            {{ my_name.username }}
+                        </button>
                     </div>
                     {% endfor %}
                 </div>
+                {% for my_follow in profile_user %}
                 <div class="profile_following">
                     팔로잉
+                    <a style="text-decoration: none; color: black" href="/user">
                     <div class="following_num">
-                        {{ user.follow.count }}
+                        {{ my_follow.follow.count }}
                     </div>
+                    </a>
                 </div>
+                {% endfor %}
             </div>
 
 
             <div class="profile_book-area" id="profile_book-area" name="profile_book-area" style="">
                 <div class="profile_book_category">
                     <button class="profile_book_category_button">
-                        책장
+                        Mybook
                     </button>
                 </div>
                 <div class="profile_book_box">
@@ -74,7 +84,7 @@
             <div class="profile_review-area" id="profile_review-area" name="profile_review-area" style="">
                 <div class="profile_review_category">
                     <button class="profile_review_category_button">
-                        히스토리
+                        History
                     </button>
                 </div>
                 <div class="profile_review_box">
