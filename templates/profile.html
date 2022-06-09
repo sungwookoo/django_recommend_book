@@ -18,19 +18,17 @@
             <div class="profile_top-area" id="profile_top-area" name="profile_top-area" style="">
                 <div class="profile_follower">
                     팔로워
-                    {% for my_follow in profile_follow %}
                     <div class="follower_num">
-                        {{ my_follow }}
+                        {{ user.followee.count }}
                     </div>
-                    {% endfor %}
                 </div>
                 <div class="profile_image_name_box">
+                    {% for my_name in profile_user %}
                     <div class="profile_image_box">
-                        <a href="/profile/">
+                        <a href="/profile/{{ my_name.id }}">
                         <img class="profile_image" src="https://cdn.dribbble.com/users/706421/screenshots/17772059/media/cb14630db26b8821c8e23b66b368cdf1.gif">
                         </a>
                     </div>
-                    {% for my_name in profile_user %}
                     <div class="profile_name">
                     {{ my_name.username }}
                     </div>
@@ -38,11 +36,9 @@
                 </div>
                 <div class="profile_following">
                     팔로잉
-                    {% for my_following in profile_following %}
                     <div class="following_num">
-                        {{ my_following }}
+                        {{ user.follow.count }}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
 
@@ -58,7 +54,7 @@
                     {% for my_book in profile_book %}
                     <div class="profile_book">
                         <div class="profile_book_image_box">
-                            <a href="/book/detail/">
+                            <a href="/book/{{ my_book.book.pk }}">
                                 <img class="profile_book_image" src="{{ my_book.book.img_url }}">
                             </a>
                         </div>
@@ -86,21 +82,21 @@
                     {% for my_review in profile_review %}
                     <div class="profile_review">
                         <div class="profile_review_title">
-                            <a style="text-decoration: none; color: black" href="/book/review">
+                            <a style="text-decoration: none; color: black" href="/book/{{ my_review.book_master_seq.pk }}">
                                 <button class="profile_review_title_button">
                                     {{ my_review.book_master_seq.title }}
                                 </button>
                             </a>
                         </div>
                         <div class="profile_review_content">
-                            <a style="text-decoration: none; color: black" href="/book/review">
+                            <a style="text-decoration: none; color: black" href="/book/{{ my_review.book_master_seq.pk }}">
                                 <button class="profile_review_content_button">
                                     {{ my_review.content }}
                                 </button>
                             </a>
                         </div>
                         <div class="profile_review_date">
-                            <a style="text-decoration: none; color: black" href="/book/review">
+                            <a style="text-decoration: none; color: black" href="/book/{{ my_review.book_master_seq.pk }}">
                                 <button class="profile_review_date_button">
                                     {{ my_review.created_at }}
                                 </button>
