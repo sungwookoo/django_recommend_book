@@ -38,8 +38,8 @@
 
                     {% for bs in bestseller %}
                         <div>
-                            <img class=bs_img src="{{ bs.img }}"><br>
-                            <input type='radio' name='book' value='{{ bs.book_number }}'/>
+                            <img class=bs_img src="{{ bs.img_url }}"><br>
+                            <input type='radio' name='book' value='{{ bs.master_seq }}'/>
                             {{ bs.title }}
                         </div>
                     {% endfor %}
