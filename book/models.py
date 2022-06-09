@@ -8,7 +8,6 @@ from django.conf import settings
 #                   'description': df['description'][index], 'author': df['author'][index],'price': df['price'][index],'pub_date': df['pub_date_2'][index],
 #                   'publisher': df['publisher'][index]})
 
-
 class BookData(models.Model):
     class Meta:
         db_table = "book_data"
