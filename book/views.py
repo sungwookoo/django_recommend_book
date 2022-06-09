@@ -251,16 +251,16 @@ def insert_crawling_data(request):
             print(book_number)
     print(len(bestseller))
     for index in range(0, len(bestseller)):
-        book_data = BookData()
-        book_data.master_seq = bestseller[index]['book_number']
-        book_data.title = bestseller[index]['title']
-        book_data.img_url = bestseller[index]['img']
-        book_data.description = bestseller[index]['description']
-        book_data.author = bestseller[index]['author']
-        book_data.price = bestseller[index]['price']
-        book_data.pub_date_2 = datetime.strptime(bestseller[index]['pub_day'][0:10], "%Y-%m-%d")
-        book_data.publisher = bestseller[index]['publication']
-        book_data.save()
+        book_data1 = BookData()
+        book_data1.master_seq = bestseller[index]['book_number']
+        book_data1.title = bestseller[index]['title']
+        book_data1.img_url = bestseller[index]['img']
+        book_data1.description = bestseller[index]['description']
+        book_data1.author = bestseller[index]['author']
+        book_data1.price = bestseller[index]['price']
+        book_data1.pub_date_2 = datetime.strptime(bestseller[index]['pub_day'][0:10], "%Y-%m-%d")
+        book_data1.publisher = bestseller[index]['publication']
+        book_data1.save()
         print(bestseller[index]['book_number'])
 
     return redirect('/book')
