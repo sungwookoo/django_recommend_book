@@ -116,8 +116,11 @@ def get_book(request):
 def detail_book(request, id):
     book = BookData.objects.get(id=id)
     book_review = Review.objects.filter(book_master_seq=book).order_by('-created_at')
-    like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
-    return render(request, 'detail.html', {'book': book, 'reviews': book_review, 'like_exist': like_exist})
+    if request.user.is_authenticated:
+        like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
+        return render(request, 'detail.html', {'book': book, 'reviews': book_review, 'like_exist': like_exist})
+    else:
+        return render(request, 'detail.html', {'book': book, 'reviews': book_review, 'like_exist': False})
 
 
 def insert_book_data(request):
@@ -145,18 +148,22 @@ def insert_book_data(request):
 
 def write_review(request, id):
     if request.method == 'POST':
-        review = request.POST.get("my-review", "")
-        current_Book = BookData.objects.get(id=id)
-        RV = Review()
-        RV.content = review
-        RV.writer = request.user
-        RV.book_master_seq = current_Book
-        RV.save()
+        if request.user.is_authenticated:
+            review = request.POST.get("my-review", "")
+            current_Book = BookData.objects.get(id=id)
+            RV = Review()
+            RV.content = review
+            RV.writer = request.user
+            RV.book_master_seq = current_Book
+            RV.save()
 
-        if RV:
-            messages.warning(request, "리뷰 작성 성공")
+            if RV:
+                messages.warning(request, "리뷰 작성 성공")
 
-        return redirect('/book/' + str(current_Book.id))
+            return redirect('/book/' + str(current_Book.id))
+        else:
+            messages.warning(request, "로그인이 필요합니다")
+            return redirect('sign-in')
 
 
 @login_required
