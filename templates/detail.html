@@ -59,13 +59,13 @@
                                 </button>
                             </a>
                             <a href="/book/likes/{{ book.id }}">
-                                {% if user in like_users %}
-                                    <button class="w-btn-outline w-btn-skin-outline" type="button"
+                                {% if like_exist %}
+                                    <button class="w-btn-outline w-btn-skin-outline like-btn" type="button"
                                             style="margin-top: 10px;color:red;">
                                         <i class="fa-solid fa-heart"></i>
                                     </button>
                                 {% else %}
-                                    <button class="w-btn-outline w-btn-skin-outline" type="button"
+                                    <button class="w-btn-outline w-btn-skin-outline like-btn" type="button"
                                             style="margin-top: 10px;color:white;">
                                         <i class="fa-solid fa-heart"></i>
                                     </button>

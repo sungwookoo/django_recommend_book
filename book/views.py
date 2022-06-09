@@ -12,7 +12,7 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import re
 
 # Create your views here.
-from book.models import BookData,Like,Review
+from book.models import BookData, Like, Review
 from django.views.decorators.http import require_POST
 
 
@@ -117,7 +117,9 @@ def get_book(request):
 def detail_book(request, id):
     book = BookData.objects.get(id=id)
     book_review = Review.objects.filter(book_master_seq=book).order_by('-created_at')
-    return render(request,'detail.html',{'book':book,'reviews':book_review})
+    like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
+    return render(request, 'detail.html', {'book': book, 'reviews': book_review, 'like_exist': like_exist})
+
 
 def insert_book_data(request):
     df = pd.read_table('book/doc2vec/book.csv', sep=',')
@@ -141,9 +143,10 @@ def insert_book_data(request):
     print(count)
     return redirect('/book')
 
-def write_review(request,id):
+
+def write_review(request, id):
     if request.method == 'POST':
-        review = request.POST.get("my-review","")
+        review = request.POST.get("my-review", "")
         current_Book = BookData.objects.get(id=id)
         RV = Review()
         RV.content = review
@@ -154,52 +157,56 @@ def write_review(request,id):
         if RV:
             messages.warning(request, "리뷰 작성 성공")
 
-        return redirect('/book/'+str(current_Book.id))
+        return redirect('/book/' + str(current_Book.id))
 
 
 @login_required
-def delete_review(request,id):
+def delete_review(request, id):
     rv = Review.objects.get(id=id)
     page = rv.book_master_seq
     idx = re.sub(r'[^0-9]', '', page)
     rv.delete()
-    messages.warning(request,"리뷰를 삭제했습니다")
-    return redirect('/book/'+str(idx))
+    messages.warning(request, "리뷰를 삭제했습니다")
+    return redirect('/book/' + str(idx))
+
 
 @login_required
-def edit_review(request,id):
+def edit_review(request, id):
     rv = Review.objects.get(id=id)
     context = {
-        'review':rv,
+        'review': rv,
     }
-    return render(request,'edit.html',context)
+    return render(request, 'edit.html', context)
 
-def update(request,id):
+
+def update(request, id):
     review = Review.objects.get(id=id)
     page = review.book_master_seq
     idx = re.sub(r'[^0-9]', '', page)
     review.content = request.POST.get('my-review')
     review.save()
     messages.warning(request, "리뷰를 수정했습니다")
-    return redirect('/book/'+str(idx))
+    return redirect('/book/' + str(idx))
 
-def likes(request,book_id):
+
+def likes(request, book_id):
     like = Like.objects.values()
 
     if request.user.is_authenticated:
         book = BookData.objects.get(id=book_id)
-        if len(like) < 1 :
+        like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
+        if like_exist:
+            like = Like.objects.filter(
+                user=request.user,
+                book=book
+            )
+            like.delete()
+            messages.warning(request, "관심 취소 되었습니다")
+            return redirect('/book/' + str(book.id))
+        else:
             like = Like(book=book, user=request.user)
             like.save()
             messages.warning(request, "관심 등록 되었습니다")
-            return redirect('/book/'+str(book.id))
-        else:
-            like = Like.objects.filter(
-                user = request.user,
-                book = book
-            )
-            like.delete()
-            messages.warning(request,"관심 취소 되었습니다")
-            return redirect('/book/'+str(book.id))
+            return redirect('/book/' + str(book.id))
 
     return redirect('/sign-in')
