@@ -1,9 +1,8 @@
 # user/views.py
 from django.shortcuts import render, redirect
 
-from book.models import BookData, Review
+from book.models import Like, Review, BookData
 from .models import UserModel
-from book.models import Like
 from django.http import HttpResponse
 # user/views.py
 from django.contrib.auth import get_user_model  # 사용자가 있는지 검사하는 함수
@@ -110,33 +109,17 @@ def user_follow(request, id):
 #     return render(request, 'profile.html', {'books':books, 'reviews':reviews})
 
 
-# def profile_view(request):
-#     return render(request, 'profile.html')
+@login_required
+def profile_view(request, id):
+    profile_book = Like.objects.filter(user_id=id)
+    profile_review = Review.objects.filter(writer_id=id)
+    profile_user = UserModel.objects.filter(id=id)
 
+    return render(request, 'profile.html', {'profile_book': profile_book,
+                                            'profile_review': profile_review,
+                                            'profile_user': profile_user,
+                                            })
 
-def profile_view(request):
-    if request.method == 'GET':
-        profile_book_list = Book.objects.all()
-        profile_img_list = Book.objects.all()
-        profile_review_list = Review.objects.all()
-        profile_name_list = ['[청하]']
-        profile_follow_list = ['132']
-        profile_following_list = ['124']
-
-        return render(request, 'profile.html', {'profile_book': profile_book_list,
-                                                'profile_review': profile_review_list,
-                                                'profile_name': profile_name_list,
-                                                'profile_follow': profile_follow_list,
-                                                'profile_following': profile_following_list,
-                                                'profile_img': profile_img_list
-                                                })
-
-
-    #     id = request.GET['주소']
-    #     data = {
-    #        'html' : id,
-    #     }
-    # return render(request, 'profile.html', data)
 
 def crawling_bestseller():
     bestseller = []

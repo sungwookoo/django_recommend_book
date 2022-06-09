@@ -1,16 +1,19 @@
 import gensim.models
 from django.contrib import messages
+from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 import MeCab
 import pandas as pd
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
+import re
 
 # Create your views here.
-from book.models import BookData,Book,Review
+from book.models import BookData, Like, Review
+from django.views.decorators.http import require_POST
 
 
 def home(request):
@@ -40,25 +43,24 @@ def get_book(request):
         #          'publisher': df['publisher'][index]})
 
         # df = pd.read_table('book/doc2vec/book.csv', sep=',')
+
+        # df = pd.DataFrame(list(BookData.objects.all().values()))
         # mecab = MeCab.Tagger()
         # df['token'] = 0
         # for i in range(0, len(df['title'])):
         #     tmp = mecab.parse(df['title'][i]).split()
-        #     # tmp2 = mecab.parse(str(df['description'][i])).split()
-        #
-        #     # tmp3 = tmp + tmp2
+        #     #     # tmp2 = mecab.parse(str(df['description'][i])).split()
+        #     #     # tmp3 = tmp + tmp2
         #
         #     tokens = []
         #     for k in range(0, len(tmp) - 2, 2):
         #         tokens.append(tmp[k])
         #     df['token'][i] = tokens
-        # documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(df['token'])]
-        # model = Doc2Vec(documents, vector_size=100, window=3, epochs=1, min_count=3, workers=4)
+        # # documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(df['token'])]
+        # # model = Doc2Vec(documents, vector_size=100, window=3, epochs=1, min_count=3, workers=4)
         # model = gensim.models.Doc2Vec.load('book/doc2vec/model.doc2vec')
         # inferred_doc_vec = model.infer_vector(df['token'])
-        # print(inferred_doc_vec)
         # most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=10)
-        # print(df['title'][100])
         # book_list = []
         # for index, similarity in most_similar_docs:
         #     book_list.append(
@@ -114,7 +116,12 @@ def get_book(request):
 def detail_book(request, id):
     book = BookData.objects.get(id=id)
     book_review = Review.objects.filter(book_master_seq=book).order_by('-created_at')
-    return render(request,'detail.html',{'book':book,'reviews':book_review})
+    if request.user.is_authenticated:
+        like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
+        return render(request, 'detail.html', {'book': book, 'reviews': book_review, 'like_exist': like_exist})
+    else:
+        return render(request, 'detail.html', {'book': book, 'reviews': book_review, 'like_exist': False})
+
 
 def insert_book_data(request):
     df = pd.read_table('book/doc2vec/book.csv', sep=',')
@@ -138,40 +145,70 @@ def insert_book_data(request):
     print(count)
     return redirect('/book')
 
-def write_review(request,id):
+
+def write_review(request, id):
     if request.method == 'POST':
-        review = request.POST.get("my-review","")
-        current_Book = BookData.objects.get(id=id)
-        RV = Review()
-        RV.content = review
-        RV.writer = request.user
-        RV.book_master_seq = current_Book
-        RV.save()
+        if request.user.is_authenticated:
+            review = request.POST.get("my-review", "")
+            current_Book = BookData.objects.get(id=id)
+            RV = Review()
+            RV.content = review
+            RV.writer = request.user
+            RV.book_master_seq = current_Book
+            RV.save()
 
-        if RV:
-            messages.warning(request, "리뷰 작성 성공")
+            if RV:
+                messages.warning(request, "리뷰 작성 성공")
 
-        return redirect('/book')
+            return redirect('/book/' + str(current_Book.id))
+        else:
+            messages.warning(request, "로그인이 필요합니다")
+            return redirect('sign-in')
 
 
 @login_required
-def delete_review(request,id):
+def delete_review(request, id):
     rv = Review.objects.get(id=id)
+    page = rv.book_master_seq.id
     rv.delete()
-    messages.warning(request,"리뷰를 삭제했습니다")
-    return redirect('/book')
+    messages.warning(request, "리뷰를 삭제했습니다")
+    return redirect('/book/' + str(page))
+
 
 @login_required
-def edit_review(request,id):
+def edit_review(request, id):
     rv = Review.objects.get(id=id)
     context = {
-        'review':rv,
+        'review': rv,
     }
-    return render(request,'edit.html',context)
+    return render(request, 'edit.html', context)
 
-def update(request,id):
+
+def update(request, id):
     review = Review.objects.get(id=id)
+    page = review.book_master_seq.id
     review.content = request.POST.get('my-review')
     review.save()
     messages.warning(request, "리뷰를 수정했습니다")
-    return redirect('/book')
+    return redirect('/book/' + str(page))
+
+
+def likes(request, book_id):
+    if request.user.is_authenticated:
+        book = BookData.objects.get(id=book_id)
+        like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
+        if like_exist:
+            like = Like.objects.filter(
+                user=request.user,
+                book=book
+            )
+            like.delete()
+            messages.warning(request, "관심 취소 되었습니다")
+            return redirect('/book/' + str(book.id))
+        else:
+            like = Like(book=book, user=request.user)
+            like.save()
+            messages.warning(request, "관심 등록 되었습니다")
+            return redirect('/book/' + str(book.id))
+
+    return redirect('/sign-in')
