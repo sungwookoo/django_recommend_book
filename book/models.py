@@ -9,17 +9,6 @@ from django.conf import settings
 #                   'publisher': df['publisher'][index]})
 
 
-class Review(models.Model):
-    class Meta:
-        db_table = "review"
-
-    content = models.TextField()
-    # star = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    book_master_seq = models.CharField(max_length=100)
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
 
 class BookData(models.Model):
     class Meta:
@@ -42,3 +31,15 @@ class Like(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(BookData,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Review(models.Model):
+    class Meta:
+        db_table = "review"
+
+    content = models.TextField()
+    # star = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    book_master_seq = models.ForeignKey(BookData,on_delete=models.CASCADE)
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

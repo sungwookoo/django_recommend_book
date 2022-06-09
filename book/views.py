@@ -163,11 +163,10 @@ def write_review(request, id):
 @login_required
 def delete_review(request, id):
     rv = Review.objects.get(id=id)
-    page = rv.book_master_seq
-    idx = re.sub(r'[^0-9]', '', page)
+    page = rv.book_master_seq.id
     rv.delete()
     messages.warning(request, "리뷰를 삭제했습니다")
-    return redirect('/book/' + str(idx))
+    return redirect('/book/' + str(page))
 
 
 @login_required
@@ -181,17 +180,14 @@ def edit_review(request, id):
 
 def update(request, id):
     review = Review.objects.get(id=id)
-    page = review.book_master_seq
-    idx = re.sub(r'[^0-9]', '', page)
+    page = review.book_master_seq.id
     review.content = request.POST.get('my-review')
     review.save()
     messages.warning(request, "리뷰를 수정했습니다")
-    return redirect('/book/' + str(idx))
+    return redirect('/book/' + str(page))
 
 
 def likes(request, book_id):
-    like = Like.objects.values()
-
     if request.user.is_authenticated:
         book = BookData.objects.get(id=book_id)
         like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
