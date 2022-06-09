@@ -46,13 +46,12 @@
     flex-direction: row;
     justify-content: center ;
     font-size: 23px;
-    color: black;
 }
 
 .profile_name_button{
     margin-top: 3.5px;
     text-align: center;
-    padding: 0px 10px;
+    padding: 0 10px;
     text-decoration: none;
     display: inline-block;
     width: auto;
@@ -61,7 +60,6 @@
     background-image: url("https://cdn.dribbble.com/users/19950/screenshots/16816902/media/ffd8e585dde623cbf29ccc24b2a783b3.jpg?compress=1&resize=1200x900&vertical=top");
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    cursor: pointer;
     transition: 0.5s;
 }
 
@@ -109,20 +107,22 @@
 }
 
 .profile_book_category{
-    font-size: 20px;
+    font-size: 22px;
+    margin-top: 10px;
     margin-bottom: 5px;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 .profile_book_category_button{
     /*-webkit-appearance: none;*/
     /*-moz-appearance: none;*/
     /*appearance: none;*/
-
     margin-top: 3.5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    width: 60px;
+    width: auto;
+    padding: 1px 10px;
     border: none;
     border-radius: 7px;
     background-image: url("https://cdn.dribbble.com/users/59100/screenshots/16780236/media/b86f5834727702987cfb09d50da050a6.jpg?compress=1&resize=1200x900&vertical=top");
@@ -147,7 +147,7 @@
 
 
 .profile_book{
-    margin: 20px 20px 0px 30px;
+    margin: 13px 20px 0px 30px;
 }
 
 /*.profile_book_image_box{*/
@@ -208,7 +208,7 @@
 
 
 .profile_book_name_box{
-    margin-top: 5px;
+    margin-top: 7px;
 }
 
 .profile_book_name{
@@ -249,6 +249,7 @@
 .profile_review_category{
     font-size: 20px;
     margin-bottom: 5px;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 .profile_review_category_button{
@@ -256,7 +257,8 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    width: 90px;
+    width: auto;
+    padding: 1px 10px;
     border: none;
     border-radius: 7px;
     background-image: url("https://cdn.dribbble.com/users/59100/screenshots/16780236/media/b86f5834727702987cfb09d50da050a6.jpg?compress=1&resize=1200x900&vertical=top");
