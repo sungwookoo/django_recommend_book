@@ -220,7 +220,7 @@ def likes(request, book_id):
 def insert_crawling_data(request):
     bestseller = []
     book_number=0
-    page_ii = ['03','05','33']
+    page_ii = ['01','05','13','15','29','32','33']
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     for k in page_ii:
@@ -230,7 +230,7 @@ def insert_crawling_data(request):
         soup = BeautifulSoup(data.text, 'html.parser')
         books = soup.select('#prd_list_type1 > li')
 
-        for i in range(0, len(books), 2):
+        for i in range(0, 20, 2):
             book_number+=1
             best_image = books[i].select_one('div.thumb_cont > div.info_area > div.cover_wrap > div.cover > a > span > img')['src']
             best_title = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.title > a > strong').text
