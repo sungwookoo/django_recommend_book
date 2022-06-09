@@ -8,8 +8,6 @@ from django.conf import settings
 #                   'description': df['description'][index], 'author': df['author'][index],'price': df['price'][index],'pub_date': df['pub_date_2'][index],
 #                   'publisher': df['publisher'][index]})
 
-
-
 class BookData(models.Model):
     class Meta:
         db_table = "book_data"
@@ -41,5 +39,5 @@ class Review(models.Model):
     # star = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    book_master_seq = models.ForeignKey(BookData,on_delete=models.CASCADE)
+    book_master_seq = models.ForeignKey(BookData, on_delete=models.CASCADE)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
