@@ -29,7 +29,8 @@
             <div class="col-md-7">
                 <div class="row">
                     <div class="alert alert-success" role="alert">
-                        나를 팔로우 하는 사람 수 : {{ user.followee.count }} 명 / 내가 팔로우 하는 사람 수 : {{ user.follow.count }} 명
+                        <p>Follower {{ user.followee.count }}</p>
+                        <p>Following {{ user.follow.count }}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -37,11 +38,13 @@
                     {% for ul in user_list %}
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ ul.username }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ ul.email }}</h6>
-                                <p class="card-text">
-                                    {{ ul.bio }}
-                                </p>
+                                <h5 class="card-title">
+                                    <a style="text-decoration: none; color: black" href="/profile/{{ ul.pk }}">
+                                        <button class="user_name_button">
+                                            {{ ul.username }}
+                                        </button>
+                                    </a>
+                                </h5>
                                 <p class="card-text">
                                     팔로잉 {{ ul.follow.count }} 명 / 팔로워 {{ ul.followee.count }} 명
                                 </p>
