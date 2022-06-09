@@ -6,7 +6,7 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/user_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user_list.css'%}?after">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&family=Yeon+Sung&display=swap" rel="stylesheet">
@@ -49,9 +49,17 @@
                                     팔로잉 {{ ul.follow.count }} 명 / 팔로워 {{ ul.followee.count }} 명
                                 </p>
                                 {% if ul in user.follow.all %}
-                                    <a href="/user/follow/{{ ul.id }}" class="card-link">[팔로우 취소]</a>
+                                    <a href="/user/follow/{{ ul.id }}" class="card-link">
+                                        <button class="follow_cancle_button">
+                                            unfollow
+                                        </button>
+                                    </a>
                                 {% else %}
-                                    <a href="/user/follow/{{ ul.id }}" class="card-link">[팔로우]</a>
+                                    <a href="/user/follow/{{ ul.id }}" class="card-link">
+                                        <button class="follow_on_button">
+                                            follow
+                                        </button>
+                                    </a>
                                 {% endif %}
                             </div>
                         </div>
