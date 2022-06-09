@@ -45,9 +45,24 @@
     display: flex;
     flex-direction: row;
     justify-content: center ;
-    font-size: 25px;
+    font-size: 23px;
     color: black;
+}
+
+.profile_name_button{
+    margin-top: 3.5px;
+    text-align: center;
+    padding: 0px 10px;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    border: none;
+    border-radius: 7px;
+    background-image: url("https://cdn.dribbble.com/users/19950/screenshots/16816902/media/ffd8e585dde623cbf29ccc24b2a783b3.jpg?compress=1&resize=1200x900&vertical=top");
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     cursor: pointer;
+    transition: 0.5s;
 }
 
 .profile_follower{
@@ -156,7 +171,6 @@
     z-index:1;
     background-color: #4158D0;
     background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
-    filter: brightness(115%);
     /*box-shadow: rgba(136, 165, 191, 0.48) 10px 5px 20px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;*/
 }
 
@@ -183,11 +197,13 @@
     overflow: hidden;
     transition: all 0.2s linear;
     cursor: pointer;
+    filter: brightness(85%);
 }
 
 .profile_book_image:hover{
     transform: scale(1.05);
     border: solid 5px palegreen;
+    filter: brightness(105%);
 }
 
 
