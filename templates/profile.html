@@ -16,12 +16,14 @@
     <div class="container timeline-container" style="">
         <div class="profile_container" style="">
             <div class="profile_top-area" id="profile_top-area" name="profile_top-area" style="">
+                {% for my_follow in profile_user %}
                 <div class="profile_follower">
                     팔로워
                     <div class="follower_num">
-                        {{ user.followee.count }}
+                        {{ my_follow.followee.count }}
                     </div>
                 </div>
+                {% endfor %}
                 <div class="profile_image_name_box">
                     {% for my_name in profile_user %}
                     <div class="profile_image_box">
@@ -34,12 +36,14 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% for my_follow in profile_user %}
                 <div class="profile_following">
                     팔로잉
                     <div class="following_num">
-                        {{ user.follow.count }}
+                        {{ my_follow.follow.count }}
                     </div>
                 </div>
+                {% endfor %}
             </div>
 
 
