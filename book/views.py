@@ -1,6 +1,6 @@
 import gensim.models
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 import MeCab
 import pandas as pd
+from django.views.decorators.csrf import csrf_exempt
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import re
 from datetime import datetime
@@ -18,63 +19,90 @@ from django.views.decorators.http import require_POST
 import requests
 from bs4 import BeautifulSoup
 
+from user.models import UserModel
+
+df = pd.DataFrame(list(BookData.objects.all().values()))
+mecab = MeCab.Tagger()
+
+
+def loading(request):
+    user = request.user.is_authenticated
+    if user:
+        return render(request, 'loading.html')
+    else:
+        return redirect('/sign-in')
+
+
+@csrf_exempt
+def loading_proc(request):
+    if request.method == 'POST':
+
+        response = {
+            'url': 'home'
+        }
+        return JsonResponse(response)
+
 
 def home(request):
-    # user = request.user.is_authenticated
-    # if user:
-    #     return redirect('/home')
-    # else:
-    #     return redirect('/sign-in')
-    return redirect('/book')
+    user = request.user.is_authenticated
+    if user:
+        return redirect('/book')
+    else:
+        return redirect('/sign-in')
+
+
+def get_recommend_list(request, id):
+    user_id = UserModel.objects.get(id=request.user.id)
+    selected_book = BookData.objects.get(id=id)
+    page = request.GET.get('page', 1)
+    profile_book = Like.objects.filter(user_id=user_id)
+
+    model = gensim.models.Doc2Vec.load('book/doc2vec/model.doc2vec')
+
+    # 선택한 도서 토큰화
+    tmp = mecab.parse(selected_book.title).split()
+    tmp2 = mecab.parse(str(selected_book.description)).split()
+    tmp3 = tmp + tmp2
+    tokens = []
+    for k in range(0, len(tmp3) - 2, 2):
+        if '*' not in tmp3[k] and len(tmp3[k]) > 1:
+            tokens.append(tmp3[k])
+        else:
+            break
+
+    inferred_doc_vec = model.infer_vector(tokens)
+    most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=100)
+    recommend_list = []
+    for index, similarity in most_similar_docs:
+        # 자신은 안나오게 할 예정
+
+        recommend_list.append(
+            {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img_url': df['img_url'][index],
+             'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
+             'pub_date_2': df['pub_date_2'][index],
+             'publisher': df['publisher'][index]})
+
+    paginator = Paginator(recommend_list, 20)
+    try:
+        recommend_list = paginator.page(page)
+    except PageNotAnInteger:
+        recommend_list = paginator.page(1)
+    except EmptyPage:
+        recommend_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'home.html',
+                  {'all_book': recommend_list, 'profile_book': profile_book, 'selected_book': selected_book.title})
 
 
 def get_book(request):
     if request.method == 'GET':
-        # book_list = []
-        # for i in range(1, 100001):
-        #     book_list.append(
-        #         {'title': '제목' + str(i), 'author': '저자' + str(i), 'publisher': '출판사' + str(i), 'desc': '내용' + str(i)}
-        #     )
-
-        # df = pd.read_table('book/doc2vec/book.csv', sep=',')
-        #
-        # for index in range(0, len(df['title'])):
-        #     book_list.append(
-        #         {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
-        #          'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
-        #          'pub_date': df['pub_date_2'][index],
-        #          'publisher': df['publisher'][index]})
-
-        # df = pd.read_table('book/doc2vec/book.csv', sep=',')
-
-        # df = pd.DataFrame(list(BookData.objects.all().values()))
-        # mecab = MeCab.Tagger()
-        # df['token'] = 0
-        # for i in range(0, len(df['title'])):
-        #     tmp = mecab.parse(df['title'][i]).split()
-        #     #     # tmp2 = mecab.parse(str(df['description'][i])).split()
-        #     #     # tmp3 = tmp + tmp2
-        #
-        #     tokens = []
-        #     for k in range(0, len(tmp) - 2, 2):
-        #         tokens.append(tmp[k])
-        #     df['token'][i] = tokens
-        # # documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(df['token'])]
-        # # model = Doc2Vec(documents, vector_size=100, window=3, epochs=1, min_count=3, workers=4)
-        # model = gensim.models.Doc2Vec.load('book/doc2vec/model.doc2vec')
-        # inferred_doc_vec = model.infer_vector(df['token'])
-        # most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=10)
-        # book_list = []
-        # for index, similarity in most_similar_docs:
-        #     book_list.append(
-        #         {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img': df['img_url'][index],
-        #          'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
-        #          'pub_date': df['pub_date_2'][index],
-        #          'publisher': df['publisher'][index]})
-
+        user_id = UserModel.objects.get(id=request.user.id)
         book_list = BookData.objects.all()
+        total_book = book_list.count()
+        print(total_book)
         search_text = request.GET.get('search_text', '')
         page = request.GET.get('page', 1)
+        profile_book = Like.objects.filter(user_id=user_id)
 
         if search_text != '':
             if len(search_text) < 2:
@@ -99,7 +127,9 @@ def get_book(request):
             except EmptyPage:
                 result_list = paginator.page(paginator.num_pages)
 
-            return render(request, 'home.html', {'all_book': result_list, 'search_text': search_text})
+            return render(request, 'home.html',
+                          {'all_book': result_list, 'search_text': search_text, 'profile_book': profile_book,
+                           'total_book': total_book})
 
         else:
             paginator = Paginator(book_list, 20)
@@ -109,7 +139,8 @@ def get_book(request):
                 book_list = paginator.page(1)
             except EmptyPage:
                 book_list = paginator.page(paginator.num_pages)
-            return render(request, 'home.html', {'all_book': book_list})
+            return render(request, 'home.html',
+                          {'all_book': book_list, 'profile_book': profile_book, 'total_book': total_book})
 
 
 # def detail_book(request, id):
@@ -219,8 +250,8 @@ def likes(request, book_id):
 
 def insert_crawling_data(request):
     bestseller = []
-    book_number=0
-    page_ii = ['01','05','13','15','29','32','33']
+    book_number = 0
+    page_ii = ['01', '05', '13', '15', '29', '32', '33']
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     for k in page_ii:
@@ -231,23 +262,27 @@ def insert_crawling_data(request):
         books = soup.select('#prd_list_type1 > li')
 
         for i in range(0, 20, 2):
-            book_number+=1
-            best_image = books[i].select_one('div.thumb_cont > div.info_area > div.cover_wrap > div.cover > a > span > img')['src']
-            best_title = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.title > a > strong').text
+            book_number += 1
+            best_image = \
+                books[i].select_one('div.thumb_cont > div.info_area > div.cover_wrap > div.cover > a > span > img')[
+                    'src']
+            best_title = books[i].select_one(
+                'div.thumb_cont > div.info_area > div.detail > div.title > a > strong').text
             best_author = books[i].select_one(
                 'div.thumb_cont > div.info_area > div.detail > div.pub_info > span.author').text
             best_publication = books[i].select_one(
                 'div.thumb_cont > div.info_area > div.detail > div.pub_info > span.publication').text
             best_pub_day = books[i].select_one(
                 'div.thumb_cont > div.info_area > div.detail > div.pub_info > span:nth-child(3)').text
-            best_pub_day = best_pub_day.strip().replace('.','-').replace('\t','').replace('\r','').replace('\n','')
+            best_pub_day = best_pub_day.strip().replace('.', '-').replace('\t', '').replace('\r', '').replace('\n', '')
             best_price = books[i].select_one(
                 'div.thumb_cont > div.info_area > div.detail > div.price > strong.sell_price').text
-            best_price = best_price.replace('원','').replace(',','')
+            best_price = best_price.replace('원', '').replace(',', '')
             best_description = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.info > span').text
             bestseller.append(
                 {'book_number':book_number, 'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
                  'pub_day': best_pub_day, 'price':best_price,'description': best_description})
+
 
     for index in range(0, len(bestseller)):
         book_data1 = BookData()
