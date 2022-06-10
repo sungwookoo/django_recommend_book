@@ -1,8 +1,25 @@
 
-/**{*/
-/*    border: 1px solid blue;*/
-/*}*/
+*{
+    /*border: 1px solid blue;*/
 
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.hi{
+    background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("https://cdn.dribbble.com/userupload/2839838/file/original-1de4b8b7f37c9bb8cf6f2bcb83a27d61.png?compress=1&resize=2400x1800");
+    background-position: center;
+    background-size: 100%;
+
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 40px;
+    color: white;
+    border: none;
+    text-align: center;
+    width: auto;
+}
 
 .my_name_button{
     font-family: 'Do Hyeon', sans-serif;
@@ -15,12 +32,85 @@
     width: auto;
     border: none;
     border-radius: 7px;
-    background-image: url("https://cdn.dribbble.com/users/3742223/screenshots/18441609/media/796a39add3579698c1613f7ddb746ab7.jpg?compress=1&resize=1200x900&vertical=top");
+    background-image: url("https://cdn.dribbble.com/users/10428614/screenshots/18074145/media/b58a494b1551bf88584677ae5c54664c.png?compress=1&resize=1200x900&vertical=top");
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: 0.5s;
     background-position: center;
     background-size: 100%;
+}
+
+.my_follower_count{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.follower_count{
+    /*-webkit-box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    /*moz-transition: all .4s ease-in-out;*/
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+    background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
+    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}
+
+.follower_count:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+
+.my_following_count{
+    margin-left: 20px;
+}
+
+.following_count{
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.following_count:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 
 .user_name_button{
@@ -54,7 +144,7 @@
     border: none;
     border-radius: 7px;
     background-image: url("https://cdn.dribbble.com/users/8703552/screenshots/18432346/media/40250e51d8f29c6dfedfd7e18d474d2c.jpg?compress=1&resize=1200x900&vertical=top");
-    color: white;
+    color: whitesmoke;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: 0.5s;
 }
