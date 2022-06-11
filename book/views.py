@@ -65,19 +65,19 @@ def get_recommend_list(request, id):
     tmp3 = tmp + tmp2
     tokens = []
     for k in range(0, len(tmp3) - 2, 2):
-        if '*' not in tmp3[k] and len(tmp3[k]) > 1:
-            tokens.append(tmp3[k])
-        else:
-            break
+        tokens.append(tmp3[k])
 
     inferred_doc_vec = model.infer_vector(tokens)
-    most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=100)
+    most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=101)
     recommend_list = []
     for index, similarity in most_similar_docs:
-        # 자신은 안나오게 할 예정
+
+        # 자기 자신은 추천 도서에서 제외
+        if df['master_seq'][index] == selected_book.master_seq:
+            continue
 
         recommend_list.append(
-            {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img_url': df['img_url'][index],
+            {'id': df['id'][index], 'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img_url': df['img_url'][index],
              'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
              'pub_date_2': df['pub_date_2'][index],
              'publisher': df['publisher'][index]})
@@ -99,7 +99,6 @@ def get_book(request):
         user_id = UserModel.objects.get(id=request.user.id)
         book_list = BookData.objects.all()
         total_book = book_list.count()
-        print(total_book)
         search_text = request.GET.get('search_text', '')
         page = request.GET.get('page', 1)
         profile_book = Like.objects.filter(user_id=user_id)
