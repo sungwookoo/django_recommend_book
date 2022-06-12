@@ -1,3 +1,6 @@
+body {
+    flex-wrap: wrap;
+}
 .book-info {
     display: flex;
     flex-direction: column;
@@ -16,6 +19,52 @@
     flex-wrap: wrap;
 }
 
+/*bestseller*/
+.bestseller-area{
+
+}
+
+.bestseller{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow-x: scroll;
+    margin-bottom: 40px;
+}
+
+.bestseller-book{
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.bestseller-book-img{
+    width: 80px;
+    height: 110px;
+    background-color: black;
+    margin-bottom: 5px;
+}
+
+.bestseller-thumb-book-img{
+    width: 80px;
+    height: 110px;
+    object-fit: cover;
+
+
+}
+
+.bestseller-title {
+    display: block;
+    font-size: xx-small;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 55px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+/*top*/
 .top-area {
     display: flex;
     flex-direction: column;
@@ -441,4 +490,11 @@
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     font-size: 20px;
+}
+
+/*more*/
+.infinite-more-link{
+    font-weight: bolder;
+    margin-bottom: 15px;
+    text-align: center;
 }
