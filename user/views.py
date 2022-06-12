@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 
 def sign_up_view(request):
     first_like=BookData.objects.filter(master_seq__range=(1,70))
+
     if request.method == 'GET':
         user = request.user.is_authenticated  # 로그인 된 사용자가 요청하는지 검사
         if user:  # 로그인이 되어있다면
@@ -93,7 +94,7 @@ def user_follow(request, id):
         click_user.followee.remove(request.user)
     else:
         click_user.followee.add(request.user)
-    return redirect('/')
+    return redirect('/user/')
 
 
 @login_required

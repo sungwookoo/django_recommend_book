@@ -36,7 +36,6 @@ def loading(request):
 @csrf_exempt
 def loading_proc(request):
     if request.method == 'POST':
-
         response = {
             'url': 'home'
         }
@@ -51,12 +50,23 @@ def home(request):
         return redirect('/sign-in')
 
 
+def get_bestseller_list():
+    bestseller_list = BookData.objects.filter(master_seq__range=['1', '70'])
+    # paginator = Paginator(bestseller_list, 10)
+    # try:
+    #     bestseller_list = paginator.page(page)
+    # except PageNotAnInteger:
+    #     bestseller_list = paginator.page(1)
+    # except EmptyPage:
+    #     bestseller_list = paginator.page(paginator.num_pages)
+    return bestseller_list
+
+
 def get_recommend_list(request, id):
     user_id = UserModel.objects.get(id=request.user.id)
     selected_book = BookData.objects.get(id=id)
     page = request.GET.get('page', 1)
     profile_book = Like.objects.filter(user_id=user_id)
-
     model = gensim.models.Doc2Vec.load('book/doc2vec/model.doc2vec')
 
     # 선택한 도서 토큰화
@@ -65,19 +75,20 @@ def get_recommend_list(request, id):
     tmp3 = tmp + tmp2
     tokens = []
     for k in range(0, len(tmp3) - 2, 2):
-        if '*' not in tmp3[k] and len(tmp3[k]) > 1:
-            tokens.append(tmp3[k])
-        else:
-            break
+        tokens.append(tmp3[k])
 
     inferred_doc_vec = model.infer_vector(tokens)
-    most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=100)
+    most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=101)
     recommend_list = []
     for index, similarity in most_similar_docs:
-        # 자신은 안나오게 할 예정
+
+        # 자기 자신은 추천 도서에서 제외
+        if df['master_seq'][index] == selected_book.master_seq:
+            continue
 
         recommend_list.append(
-            {'master_seq': df['master_seq'][index], 'title': df['title'][index], 'img_url': df['img_url'][index],
+            {'id': df['id'][index], 'master_seq': df['master_seq'][index], 'title': df['title'][index],
+             'img_url': df['img_url'][index],
              'description': df['description'][index], 'author': df['author'][index], 'price': df['price'][index],
              'pub_date_2': df['pub_date_2'][index],
              'publisher': df['publisher'][index]})
@@ -91,7 +102,8 @@ def get_recommend_list(request, id):
         recommend_list = paginator.page(paginator.num_pages)
 
     return render(request, 'home.html',
-                  {'all_book': recommend_list, 'profile_book': profile_book, 'selected_book': selected_book.title})
+                  {'all_book': recommend_list, 'profile_book': profile_book, 'selected_book': selected_book.title,
+                   'bestseller_list': get_bestseller_list()})
 
 
 def get_book(request):
@@ -99,7 +111,6 @@ def get_book(request):
         user_id = UserModel.objects.get(id=request.user.id)
         book_list = BookData.objects.all()
         total_book = book_list.count()
-        print(total_book)
         search_text = request.GET.get('search_text', '')
         page = request.GET.get('page', 1)
         profile_book = Like.objects.filter(user_id=user_id)
@@ -114,7 +125,7 @@ def get_book(request):
                 Q(author__icontains=search_text) |
                 Q(publisher__icontains=search_text)
             )
-
+            total_book = result_list.count()
             # for book in book_list:
             #     if search_text in book['author'] or search_text in book['title'] or search_text in book['publisher']:
             #         result_list.append(book)
@@ -129,7 +140,7 @@ def get_book(request):
 
             return render(request, 'home.html',
                           {'all_book': result_list, 'search_text': search_text, 'profile_book': profile_book,
-                           'total_book': total_book})
+                           'total_book': total_book, 'bestseller_list': get_bestseller_list()})
 
         else:
             paginator = Paginator(book_list, 20)
@@ -140,7 +151,8 @@ def get_book(request):
             except EmptyPage:
                 book_list = paginator.page(paginator.num_pages)
             return render(request, 'home.html',
-                          {'all_book': book_list, 'profile_book': profile_book, 'total_book': total_book})
+                          {'all_book': book_list, 'profile_book': profile_book, 'total_book': total_book,
+                           'bestseller_list': get_bestseller_list()})
 
 
 # def detail_book(request, id):

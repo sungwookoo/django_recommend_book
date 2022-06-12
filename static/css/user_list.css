@@ -1,12 +1,123 @@
-
-/**{*/
+/** {*/
 /*    border: 1px solid blue;*/
 /*}*/
 
 
-.my_name_button{
+.hi {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("https://cdn.dribbble.com/userupload/2839838/file/original-1de4b8b7f37c9bb8cf6f2bcb83a27d61.png?compress=1&resize=2400x1800");
+    background-position: center;
+    background-size: 100%;
+
     font-family: 'Do Hyeon', sans-serif;
-    font-size: 23px;
+    font-size: 40px;
+    color: white;
+    border: none;
+    text-align: center;
+    width: auto;
+}
+
+.card{
+    background-image: url("https://cdn.dribbble.com/users/1286672/screenshots/18460920/media/3e629acbaa9c8c9eecc26b9615ebbf77.gif");
+    /*background-image: url("https://cdn.dribbble.com/users/1870665/screenshots/18385863/media/6ed4e26e54210b9f2bd1f0b1ba7fd3f4.png?compress=1&resize=1600x1200&vertical=top");*/
+    background-position: center;
+    background-size: 90%;
+}
+
+/*.my_name_button {*/
+/*    font-family: 'Do Hyeon', sans-serif;*/
+/*    font-size: 23px;*/
+/*    margin-top: 3.5px;*/
+/*    text-align: center;*/
+/*    padding: 0 10px;*/
+/*    text-decoration: none;*/
+/*    display: inline-block;*/
+/*    width: auto;*/
+/*    border: none;*/
+/*    border-radius: 7px;*/
+/*    background-image: url("https://cdn.dribbble.com/users/10428614/screenshots/18074145/media/b58a494b1551bf88584677ae5c54664c.png?compress=1&resize=1200x900&vertical=top");*/
+/*    color: white;*/
+/*    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);*/
+/*    transition: 0.5s;*/
+/*    background-position: center;*/
+/*    background-size: 100%;*/
+/*}*/
+
+.my_follower_count {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.follower_count {
+    /*-webkit-box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    /*moz-transition: all .4s ease-in-out;*/
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+    background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a, #FBB03B);
+    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}
+
+.follower_count:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+
+.my_following_count {
+    margin-left: 20px;
+}
+
+.following_count {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.following_count:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.user_name_button {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 40px;
     margin-top: 3.5px;
     text-align: center;
     padding: 0 10px;
@@ -15,25 +126,104 @@
     width: auto;
     border: none;
     border-radius: 7px;
-    background-image: url("https://cdn.dribbble.com/users/19950/screenshots/16816902/media/ffd8e585dde623cbf29ccc24b2a783b3.jpg?compress=1&resize=1200x900&vertical=top");
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: 0.5s;
+    background-image: url("https://cdn.dribbble.com/users/1286672/screenshots/18460920/media/3e629acbaa9c8c9eecc26b9615ebbf77.gif");
+    background-position: center;
+    background-size: 300%;
+}
+
+.follow_cancle_button {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 16px;
+    margin-top: 3.5px;
+    text-align: center;
+    padding: 1px 6px;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    border: none;
+    border-radius: 7px;
+    background-image: url("https://cdn.dribbble.com/users/8703552/screenshots/18432346/media/40250e51d8f29c6dfedfd7e18d474d2c.jpg?compress=1&resize=1200x900&vertical=top");
+    color: whitesmoke;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: 0.5s;
+}
+
+.follow_on_button {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 16px;
+    margin-top: 3.5px;
+    text-align: center;
+    padding: 1px 6px;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    border: none;
+    border-radius: 7px;
+    background-image: url("https://cdn.dribbble.com/userupload/2803626/file/original-e7db44dd67d28decbde8f413e091dfae.jpg?compress=1&resize=2400x1800");
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: 0.5s;
 }
 
-.user_name_button{
-        font-family: 'Do Hyeon', sans-serif;
-    font-size: 20px;
-    margin-top: 3.5px;
+
+.count_button_box{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+
+}
+
+.count_button {
+    background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);
+    margin: 10px auto;
+    width: 130px;
+    height: 30px;
+    overflow: hidden;
     text-align: center;
-    padding: 0 10px;
-    text-decoration: none;
-    display: inline-block;
-    width: auto;
-    border: none;
-    border-radius: 7px;
-    background-image: url("https://cdn.dribbble.com/userupload/2843844/file/original-a65adb9bd527afbaed53d64e613350e3.jpg?compress=1&resize=2400x1800");
+    transition: .2s;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.count_button_two {
+    position: relative;
+    width: 160px;
+    height: 150px;
+    margin-top: -100px;
+    padding-top: 2px;
+    background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
+    left: -250px;
+    transition: .3s;
+}
+
+.btn_text {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    margin-top: 2px;
     color: white;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: 0.5s;
+    transition: .3s;
+}
+
+.btn_text_two {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    margin-top: 55px;
+    margin-right: -130px;
+    color: #FFF;
+}
+
+.count_button:hover .count_button_two {
+    left: -130px;
+}
+
+.count_button:hover .btn_text {
+    margin-left: 25px;
+}
+
+.count_button:active {
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
 }
