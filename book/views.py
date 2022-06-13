@@ -204,7 +204,7 @@ def detail_book(request, id):
                       {'book': book, 'reviews': book_review, 'like_exist': like_exist, 'book_title': book_title,'book_sectitle':book_sectitle})
     else:
         return render(request, 'detail.html',
-                      {'book': book, 'reviews': book_review, 'like_exist': False, 'book_title': book_title})
+                      {'book': book, 'reviews': book_review, 'like_exist': False, 'book_title': book_title,'book_sectitle':book_sectitle})
 
 
 def insert_book_data(request):
