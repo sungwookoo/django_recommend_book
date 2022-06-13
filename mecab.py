@@ -2,18 +2,28 @@ import MeCab
 import pandas as pd
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
-df = pd.read_table('book/doc2vec/book.csv', sep=',')
-# df = pd.DataFrame(list(BookData.objects.all().values()))
+import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_book.settings")
+
+import django
+
+django.setup()
+
+from book.models import BookData
+
+df = pd.DataFrame(list(BookData.objects.all().values()))
 mecab = MeCab.Tagger()
 
 df['token'] = 0
 for i in range(0, len(df['title'])):
     tmp = mecab.parse(df['title'][i]).split()
+    tmp.append('|')
     tmp2 = mecab.parse(str(df['description'][i])).split()
     tmp3 = tmp + tmp2
     tokens = []
     for k in range(0, len(tmp3) - 2, 2):
-        if '*' not in tmp3[k] and len(tmp3[k]) > 1:
+        if 'EOS' not in tmp3[k]:
             tokens.append(tmp3[k])
 
     df['token'][i] = tokens
