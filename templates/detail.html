@@ -6,6 +6,7 @@
 {% load static %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -53,7 +54,8 @@
                             </div>
                         </div>
                         <div class="book-btn">
-                            <a href="구매페이지url">
+                            <a href="https://search.shopping.naver.com/search/all?query={{ book_title }}&cat_id=&frm=NVSHATC"
+                               target="_blank">
                                 <button class="w-btn-outline w-btn-skin-outline" type="button">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </button>
