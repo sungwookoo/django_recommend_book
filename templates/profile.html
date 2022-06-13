@@ -6,10 +6,12 @@
 
 {% load static %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}?after ">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %} ">
     <script src="https://kit.fontawesome.com/6a078ab7ec.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&family=Yeon+Sung&display=swap"
+          rel="stylesheet">
+
 {% endblock %}
 
 {% block content %}
@@ -17,38 +19,39 @@
         <div class="profile_container" style="">
             <div class="profile_top-area" id="profile_top-area" name="profile_top-area" style="">
                 {% for my_follow in profile_user %}
-                <div class="profile_follower">
-                    팔로워
-                    <a style="text-decoration: none; color: black" href="/user">
-                        <div class="follower_num">
-                            {{ my_follow.followee.count }}
-                        </div>
-                    </a>
-                </div>
+                    <div class="profile_follower">
+                        팔로워
+                        <a style="text-decoration: none; color: black" href="/user">
+                            <div class="follower_num">
+                                {{ my_follow.followee.count }}
+                            </div>
+                        </a>
+                    </div>
                 {% endfor %}
                 <div class="profile_image_name_box">
                     {% for my_name in profile_user %}
-                    <div class="profile_image_box">
-                        <a href="/profile/{{ my_name.id }}">
-                        <img class="profile_image" src="https://cdn.dribbble.com/users/706421/screenshots/17772059/media/cb14630db26b8821c8e23b66b368cdf1.gif">
-                        </a>
-                    </div>
-                    <div class="profile_name">
-                        <button class="profile_name_button">
-                            {{ my_name.username }}
-                        </button>
-                    </div>
+                        <div class="profile_image_box">
+                            <a href="/profile/{{ my_name.id }}">
+                                <img class="profile_image"
+                                     src="https://cdn.dribbble.com/users/706421/screenshots/17772059/media/cb14630db26b8821c8e23b66b368cdf1.gif">
+                            </a>
+                        </div>
+                        <div class="profile_name">
+                            <button class="profile_name_button">
+                                {{ my_name.username }}
+                            </button>
+                        </div>
                     {% endfor %}
                 </div>
                 {% for my_follow in profile_user %}
-                <div class="profile_following">
-                    팔로잉
-                    <a style="text-decoration: none; color: black" href="/user">
-                    <div class="following_num">
-                        {{ my_follow.follow.count }}
+                    <div class="profile_following">
+                        팔로잉
+                        <a style="text-decoration: none; color: black" href="/user">
+                            <div class="following_num">
+                                {{ my_follow.follow.count }}
+                            </div>
+                        </a>
                     </div>
-                    </a>
-                </div>
                 {% endfor %}
             </div>
 
@@ -62,20 +65,20 @@
                 <div class="profile_book_box">
                     {#책 반복문 들어갈 자리#}
                     {% for my_book in profile_book %}
-                    <div class="profile_book">
-                        <div class="profile_book_image_box">
-                            <a href="/book/{{ my_book.book.pk }}">
-                                <img class="profile_book_image" src="{{ my_book.book.img_url }}">
-                            </a>
-                        </div>
-                        <div class="profile_book_name_box">
-                            <div class="profile_book_name">
-                                <button class="profile_book_name_button">
-                                    {{ my_book.book.title }}
-                                </button>
+                        <div class="profile_book">
+                            <div class="profile_book_image_box">
+                                <a href="/book/{{ my_book.book.pk }}">
+                                    <img class="profile_book_image" src="{{ my_book.book.img_url }}">
+                                </a>
+                            </div>
+                            <div class="profile_book_name_box">
+                                <div class="profile_book_name">
+                                    <button class="profile_book_name_button">
+                                        {{ my_book.book.title }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -90,33 +93,55 @@
                 <div class="profile_review_box">
                     {#리뷰 반복문 들어갈 자리#}
                     {% for my_review in profile_review %}
-                    <div class="profile_review">
-                        <div class="profile_review_title">
-                            <a style="text-decoration: none; color: black" href="/book/{{ my_review.book_master_seq.pk }}">
-                                <button class="profile_review_title_button">
-                                    {{ my_review.book_master_seq.title }}
-                                </button>
-                            </a>
+                        <div class="profile_review">
+                            <div class="profile_review_title">
+                                <a style="text-decoration: none; color: black"
+                                   href="/book/{{ my_review.book_master_seq.pk }}">
+                                    <button class="profile_review_title_button">
+                                        {{ my_review.book_master_seq.title }}
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="profile_review_content">
+                                <a style="text-decoration: none; color: black"
+                                   href="/book/{{ my_review.book_master_seq.pk }}">
+                                    <button class="profile_review_content_button">
+                                        {{ my_review.content }}
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="profile_review_date">
+                                <a style="text-decoration: none; color: black"
+                                   href="/book/{{ my_review.book_master_seq.pk }}">
+                                    <button class="profile_review_date_button">
+                                        {{ my_review.created_at }}
+                                    </button>
+                                </a>
+                            </div>
                         </div>
-                        <div class="profile_review_content">
-                            <a style="text-decoration: none; color: black" href="/book/{{ my_review.book_master_seq.pk }}">
-                                <button class="profile_review_content_button">
-                                    {{ my_review.content }}
-                                </button>
-                            </a>
-                        </div>
-                        <div class="profile_review_date">
-                            <a style="text-decoration: none; color: black" href="/book/{{ my_review.book_master_seq.pk }}">
-                                <button class="profile_review_date_button">
-                                    {{ my_review.created_at }}
-                                </button>
-                            </a>
-                        </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossOrigin="anonymous"></script>
+    <script>
+        $('.profile_book_name_button').each(function () {
+            if (this.offsetWidth < this.scrollWidth)
+                $(this).attr('title', $(this).text());
+        });
+
+        $('.profile_review_title_button').each(function () {
+            if (this.offsetWidth < this.scrollWidth)
+                $(this).attr('title', $(this).text());
+        });
+
+        $('.profile_review_content_button').each(function () {
+            if (this.offsetWidth < this.scrollWidth)
+                $(this).attr('title', $(this).text());
+        });
+    </script>
 
 {% endblock %}
