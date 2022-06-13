@@ -169,13 +169,20 @@ def detail_book(request, id):
     book_title = book.title
     book_title = book_title.replace(" ", "")
     book_title = book_title.split('-')[0]
+    book_sectitle = book.title
+    book_sectitle = book_sectitle.split('-')[1]
+    # if book_sectitle.find("&lt;" or "&gt;"):
+    #     book_sectitle = book_sectitle.split('&lt;')[1]
+    #     book_sectitle = book_sectitle.split('&gt;')[1]
     if request.user.is_authenticated:
         like_exist = (Like.objects.filter(user=request.user, book=book)).exists()
         return render(request, 'detail.html',
-                      {'book': book, 'reviews': book_review, 'like_exist': like_exist, 'book_title': book_title})
+                      {'book': book, 'reviews': book_review, 'like_exist': like_exist, 'book_title': book_title,
+                       'book_sectitle': book_sectitle})
     else:
         return render(request, 'detail.html',
-                      {'book': book, 'reviews': book_review, 'like_exist': False, 'book_title': book_title})
+                      {'book': book, 'reviews': book_review, 'like_exist': False, 'book_title': book_title,
+                       'book_sectitle': book_sectitle})
 
 
 def insert_book_data(request):
