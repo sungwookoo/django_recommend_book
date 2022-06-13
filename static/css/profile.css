@@ -142,9 +142,24 @@
     background-image: url("https://cdn.dribbble.com/users/59100/screenshots/15937123/media/3d665c8c88cb8359c87f1bf8e863b6f9.png?compress=1&resize=1200x900&vertical=top ");
     /*background-position: center;*/
     /*background-size: contain;*/
-
 }
 
+.profile_book_box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.profile_book_box::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+.profile_book_box::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
 
 .profile_book{
     margin: 13px 20px 0px 30px;
@@ -199,6 +214,8 @@
     cursor: pointer;
     filter: brightness(85%);
 }
+
+
 
 .profile_book_image:hover{
     transform: scale(1.05);
@@ -276,6 +293,23 @@
     border: none;
     border-radius: 10px;
     background-image: url("https://cdn.dribbble.com/users/59100/screenshots/14757059/media/f7e3a92944cea7d74e4103327f882994.jpg?compress=1&resize=1200x900&vertical=top");
+}
+
+.profile_review_box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.profile_review_box::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+.profile_review_box::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
 }
 
 .profile_review{
