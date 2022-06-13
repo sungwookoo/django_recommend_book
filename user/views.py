@@ -97,7 +97,6 @@ def user_follow(request, id):
     return redirect('/user/')
 
 
-@login_required
 def user_view(request):
     if request.method == 'GET':
         # 사용자를 불러오기, exclude와 request.user.username 를 사용해서 '로그인 한 사용자'를 제외하기
@@ -120,14 +119,19 @@ def user_view(request):
 #     return render(request, 'profile.html', {'books':books, 'reviews':reviews})
 
 
-@login_required
 def profile_view(request, id):
-    profile_book = Like.objects.filter(user_id=id)
-    profile_review = Review.objects.filter(writer_id=id)
-    profile_user = UserModel.objects.filter(id=id)
+    user = request.user.is_authenticated
+    if user:
+        profile_book = Like.objects.filter(user_id=id)
+        profile_review = Review.objects.filter(writer_id=id)
+        profile_user = UserModel.objects.filter(id=id)
 
-    return render(request, 'profile.html', {'profile_book': profile_book,
-                                            'profile_review': profile_review,
-                                            'profile_user': profile_user,
-                                            })
+        return render(request, 'profile.html', {'profile_book': profile_book,
+                                                'profile_review': profile_review,
+                                                'profile_user': profile_user,
+                                                })
+    else:
+        return redirect('/sign-in')
+
+
 
