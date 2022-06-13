@@ -1,3 +1,7 @@
+.container {
+    background: #f8f9fa
+}
+
 section{
     display: flex;
     align-items: center;
@@ -40,7 +44,7 @@ box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 
     position: relative;
     margin-bottom: 8px;
     border-radius: 4px;
-    width:330px;
+    width:100%;
     font-size: 14px;
     line-height: 40px;
     text-align: center;
@@ -54,7 +58,7 @@ box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 
     position: relative;
     margin-bottom: 8px;
     border-radius: 4px;
-    width:330px;
+    width:100%;
     font-size: 14px;
     line-height: 40px;
     text-align: center;

@@ -15,6 +15,11 @@
                 $(this).remove();
             });
         }, 4000);
+
+        function colorChange() {
+            var buttonCart = document.getElementById("cart")
+            buttonCart.style.color = "#00B4CC";
+        }
     </script>
 {% endblock %}
 
@@ -30,21 +35,22 @@
                 {#                </button>#}
             </div>
         {% endfor %}
-        <div class="col-md-7" style="width: 100%">
-            <div style="display:flex;flex-direction: column;justify-content: center;">
+        <div class="col-md-7" style="width: 100%; height:500px;">
+            <div style="display:flex; width:100%; height:100%; justify-content: center;">
                 <div class="book-area" id="book-area" name="book-area"
                      style="display: flex; flex-direction: column; flex-wrap: wrap">
 
                     {# book data #}
-                    <div class="book" style="display: flex; flex-direction: row">
+                    <div class="book" style="display: flex; flex-direction: column">
                         <div class="book-img"
-                             style="width:100px; height: 140px; background-color: black; margin-right: 30px;">
+                             style="width:200px; height: 240px; background-color: black; margin-right: 30px;">
                             <img src={{ book.img_url }} class="thumb-book-img" id="thumb-book-img"
-                                 style="object-fit: cover">
+                                 style="width: 100%;height: 100%">
                         </div>
-                        <div class="book-info" style="display: flex; flex-direction: column;">
+                        <div class="book-info" style="display: flex; flex-direction: column; margin-top: 20px">
                             <div class="book-info-title">
-                                <span style="font-size: large; font-weight: bold">{{ book.title }}</span>
+                                <span style="font-size: large; font-weight: bold">{{ book_title }}</span><br>
+                                <span style="font-size: large; font-weight: bold">{{ book_sectitle }}</span>
                             </div>
                             <div class="book-info-author">
                                 <span style="font-size: small"> 저자 : {{ book.author }} | 출판사 : {{ book.publisher }}</span>
@@ -53,11 +59,11 @@
                                 <span style=""> {{ book.description }} </span>
                             </div>
                         </div>
-                        <div class="book-btn">
+                        <div class="book-btn" style="display: flex; flex-direction: row;">
                             <a href="https://search.shopping.naver.com/search/all?query={{ book_title }}&cat_id=&frm=NVSHATC"
                                target="_blank">
-                                <button class="w-btn-outline w-btn-skin-outline" type="button">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                <button class="w-btn-outline w-btn-skin-outline" type="button" onclick="colorChange()">
+                                    <i id="cart" class="fa-solid fa-cart-shopping"></i>
                                 </button>
                             </a>
                             <a href="/book/likes/{{ book.id }}">
