@@ -73,20 +73,21 @@
             </div>
             <div class="row">
                 <div>
-                <form method="get" action="{% url 'get_book' %}" style="width:100%">
-                    <div class="search">
-                        <input type="text" class="searchTerm" placeholder="책 제목 또는 저자" id="search_text"
-                               name="search_text">
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
+                    <form method="get" action="{% url 'get_book' %}" style="width:100%">
+                        <div class="search">
+                            <input type="text" class="searchTerm" placeholder="책 제목 또는 저자" id="search_text"
+                                   name="search_text">
+                            <button type="submit" class="searchButton">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div>
+                        <button id="set_recommend_btn" class="w-btn-outline w-btn-skin-outline" type="button"
+                                style="margin-bottom: 30px" onclick="set_recommend_list()">
+                            관심 목록 숨기기
                         </button>
                     </div>
-                </form>
-                <div>
-                    <button id="set_recommend_btn" class="w-btn-outline w-btn-skin-outline" type="button" style="margin-bottom: 30px" onclick="set_recommend_list()">
-                        관심 목록 숨기기
-                    </button>
-                </div>
                 </div>
 
                 <div id="left-area" class="col-md-6">
@@ -231,7 +232,7 @@
                                             </div>
                                         </div>
                                         <div class="book-btn">
-                                            <a href="구매페이지url">
+                                            <a href="https://search.shopping.naver.com/search/all?query={{ book.title }}&cat_id=&frm=NVSHATC">
                                                 <button class="w-btn-outline w-btn-skin-outline" type="button">
                                                     <i class="fa-solid fa-cart-shopping"></i>
                                                 </button>
