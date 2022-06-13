@@ -179,13 +179,20 @@ def detail_book(request, id):
     book_review = Review.objects.filter(book_master_seq=book).order_by('-created_at')
     book_title = book.title
 
-    if "-" in book_title:
+    if "-" in book_title :
         book_title = book_title.split('-')[0]
         book_sectitle = book.title
         book_sectitle = book_sectitle.split('-')[1]
         if "&lt;" in book_sectitle:
             book_sectitle = book_sectitle.replace("&lt;","<")
-            # book_sec2 = book_sectitle.split('&gt;')[1]
+            if "&gt;" in book_sectitle:
+                book_sectitle = book_sectitle.replace("&gt;",">")
+    elif ":" in book_title :
+        book_title = book_title.split(':')[0]
+        book_sectitle = book.title
+        book_sectitle = book_sectitle.split(':')[1]
+        if "&lt;" in book_sectitle:
+            book_sectitle = book_sectitle.replace("&lt;","<")
             if "&gt;" in book_sectitle:
                 book_sectitle = book_sectitle.replace("&gt;",">")
     else :
