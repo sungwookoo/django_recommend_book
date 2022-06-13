@@ -14,7 +14,7 @@
 <form class="input-group mb-3" action="/book/review/edit/update/{{ review.id }}" method="post">
     {% csrf_token %}
     <textarea class="form-control" cols="30" rows="5" id='my-review' name='my-review'
-              placeholder="리뷰를 작성 해 주세요">{{ review.content }}</textarea>
+              placeholder="리뷰를 작성 해 주세요" style="resize:none;">{{ review.content }}</textarea>
     <button class="btn btn-outline-secondary" type="submit">작성</button>
     {% for message in messages %}
         {{ message.tag }}
