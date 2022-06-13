@@ -1,6 +1,7 @@
 body {
     flex-wrap: wrap;
 }
+
 .book-info {
     display: flex;
     flex-direction: column;
@@ -20,11 +21,11 @@ body {
 }
 
 /*bestseller*/
-.bestseller-area{
+.bestseller-area {
 
 }
 
-.bestseller{
+.bestseller {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -32,19 +33,37 @@ body {
     margin-bottom: 40px;
 }
 
-.bestseller-book{
+
+.bestseller::-webkit-scrollbar {
+    width: 10px;
+}
+
+.bestseller::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+.bestseller::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.bestseller-book {
     margin-left: 32px;
     margin-right: 32px;
 }
 
-.bestseller-book-img{
+.bestseller-book-img {
     width: 80px;
     height: 110px;
     background-color: black;
     margin-bottom: 5px;
 }
 
-.bestseller-thumb-book-img{
+.bestseller-thumb-book-img {
     width: 80px;
     height: 110px;
     object-fit: cover;
@@ -493,7 +512,7 @@ body {
 }
 
 /*more*/
-.infinite-more-link{
+.infinite-more-link {
     font-weight: bolder;
     margin-bottom: 15px;
     text-align: center;

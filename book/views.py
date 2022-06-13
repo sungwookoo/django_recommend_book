@@ -71,15 +71,19 @@ def get_recommend_list(request, id):
 
     # 선택한 도서 토큰화
     tmp = mecab.parse(selected_book.title).split()
-    tmp2 = mecab.parse(str(selected_book.description)).split()
+    tmp.append('|')
+    tmp2 = mecab.parse(selected_book.description).split()
     tmp3 = tmp + tmp2
     tokens = []
+
     for k in range(0, len(tmp3) - 2, 2):
-        tokens.append(tmp3[k])
+        if 'EOS' not in tmp3[k]:
+            tokens.append(tmp3[k])
 
     inferred_doc_vec = model.infer_vector(tokens)
     most_similar_docs = model.docvecs.most_similar([inferred_doc_vec], topn=101)
     recommend_list = []
+
     for index, similarity in most_similar_docs:
 
         # 자기 자신은 추천 도서에서 제외
@@ -292,9 +296,9 @@ def insert_crawling_data(request):
             best_price = best_price.replace('원', '').replace(',', '')
             best_description = books[i].select_one('div.thumb_cont > div.info_area > div.detail > div.info > span').text
             bestseller.append(
-                {'book_number':book_number, 'img': best_image, 'title': best_title, 'author': best_author, 'publication': best_publication,
-                 'pub_day': best_pub_day, 'price':best_price,'description': best_description})
-
+                {'book_number': book_number, 'img': best_image, 'title': best_title, 'author': best_author,
+                 'publication': best_publication,
+                 'pub_day': best_pub_day, 'price': best_price, 'description': best_description})
 
     for index in range(0, len(bestseller)):
         book_data1 = BookData()
