@@ -63,6 +63,10 @@ def get_bestseller_list():
 
 
 def get_recommend_list(request, id):
+    user = request.user.is_authenticated
+    if not user:
+        return redirect('/sign-in')
+
     user_id = UserModel.objects.get(id=request.user.id)
     selected_book = BookData.objects.get(id=id)
     page = request.GET.get('page', 1)
@@ -111,6 +115,10 @@ def get_recommend_list(request, id):
 
 
 def get_book(request):
+    user = request.user.is_authenticated
+    if not user:
+        return redirect('/sign-in')
+
     if request.method == 'GET':
         user_id = UserModel.objects.get(id=request.user.id)
         book_list = BookData.objects.all()
@@ -164,6 +172,9 @@ def get_book(request):
 #     book = {'title': '제목' + str(id), 'author': '저자' + str(id), 'publisher': '출판사' + str(id), 'desc': '내용' + str(id)}
 #     return render(request, 'detail.html', {'book': book})
 def detail_book(request, id):
+    user = request.user.is_authenticated
+    if not user:
+        return redirect('/sign-in')
     book = BookData.objects.get(id=id)
     book_review = Review.objects.filter(book_master_seq=book).order_by('-created_at')
     if request.user.is_authenticated:
