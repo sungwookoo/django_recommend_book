@@ -2,6 +2,10 @@ body {
     flex-wrap: wrap;
 }
 
+.container {
+    background: #f8f9fa
+}
+
 .book-info {
     display: flex;
     flex-direction: column;
